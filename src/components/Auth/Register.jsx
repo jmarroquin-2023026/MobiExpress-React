@@ -4,7 +4,14 @@ import { addressValidationMessage, emailValidationMessage, nameValidationMessage
     phoneValidationMessage, 
     profilePictureValidationMessage, surnameValidationMessage, usernameValidationMessage, 
     validateAddress, 
-    validatePhone} from '../../shared/validators/validators'
+    validateEmail, 
+    validateName, 
+    validatePassConfirm, 
+    validatePassword, 
+    validatePhone,
+    validateProfilePicture,
+    validateSurname,
+    validateUsername} from '../../shared/validators/validators'
 import { useRegister } from '../../shared/hooks/auth/useRegister'
 
 export const Register = ({ switchAuthHandler }) => {
@@ -200,7 +207,7 @@ export const Register = ({ switchAuthHandler }) => {
             <Input 
                 field='phone'
                 onChangeHandler={handleValueChange}
-                value={formData.password.value} 
+                value={formData.phone.value} 
                 type='text'
                 onBlurHandler={handleValidationOnBlur}
                 showErrorMessage={formData.phone.showError}
@@ -215,7 +222,7 @@ export const Register = ({ switchAuthHandler }) => {
                 value={formData.address.value} 
                 type='text'
                 onBlurHandler={handleValidationOnBlur}
-                showErrorMessage={formData.password.showError}
+                showErrorMessage={formData.address.showError}
                 validationMessage={addressValidationMessage}
             />
             </div>

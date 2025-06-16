@@ -25,7 +25,7 @@ export const useLogin=()=>{
             )
         }
         localStorage.setItem('user',JSON.stringify(response?.data?.loggedUser))
-        navigate('/Test')
+        navigate('/dashboard/categories')
     }
     return{
         login,

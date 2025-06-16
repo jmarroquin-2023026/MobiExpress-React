@@ -1,11 +1,13 @@
 import { useState } from "react"
 import { registerRequest } from "../../../services/Authapi"
 import toast from "react-hot-toast"
+import { useNavigate } from "react-router-dom"
 
 
 export const useRegister=()=>{
     const [isLoading,setIsLoading]=useState(false)
     const [error,setError]=useState(false)
+    const navigate=useNavigate()
 
     const register=async(user)=>{
         setIsLoading(true)
@@ -27,7 +29,8 @@ export const useRegister=()=>{
             )
         }
         setError(false)
-        return toast.success('Registro exitoso')
+        toast.success('Registro exitoso')
+        navigate('/auth')
     }
     return{
         register,
