@@ -52,3 +52,15 @@ export const updateCategoryRequest=async(id,category)=>{
         }
     }
 }
+
+export const deleteCategoryRequest=async(id)=>{
+    try{
+        const response=await apiClient.delete(`/category-delete/${id}`)
+        return response
+    }catch(e){
+        return{
+            error:true,
+            e
+        }
+    }
+}

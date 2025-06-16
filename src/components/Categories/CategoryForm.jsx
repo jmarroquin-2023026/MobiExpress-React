@@ -56,6 +56,7 @@ export const CategoryForm = () => {
             }
         }else{
             await addCategory(data)
+            navigate('/dashboard/categories')
         }
     }
 
