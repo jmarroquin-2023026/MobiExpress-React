@@ -148,125 +148,162 @@ export const Register = ({ switchAuthHandler }) => {
 }
 
     return (
-        <form onSubmit={handleSubmit}>
-                <h1>Register</h1>
-            <div >
-            <label>Name</label>
-            <Input
-                field='name'
-                value={formData.name.value}
-                onChangeHandler={handleValueChange}
-                placeholder={formData.name.value}
-                type='text'
-                onBlurHandler={handleValidationOnBlur}
-                showErrorMessage={formData.name.showError}
-                validationMessage={nameValidationMessage}
-            />
+        <div className="min-h-screen flex flex-col md:flex-row bg-gray-100">
+            {/* Left column - form */}
+            <div className="w-full md:w-1/2 flex items-center justify-center bg-white">
+                <div className="max-w-md w-full px-6 py-12 shadow-md rounded-md bg-white">
+                    <div className="text-center mb-6">
+                        <img src="/logo.png" alt="Logo" className="h-12 mx-auto mb-2" />
+                        <h2 className="text-2xl font-bold text-gray-700 mb-4">Registro</h2>
+                    </div>
+
+                    <form onSubmit={handleSubmit} className="space-y-4">
+                        <div>
+                            <label className="block mb-1 font-medium text-gray-700">Name</label>
+                            <Input
+                                field='name'
+                                value={formData.name.value}
+                                onChangeHandler={handleValueChange}
+                                placeholder={formData.name.value}
+                                type='text'
+                                onBlurHandler={handleValidationOnBlur}
+                                showErrorMessage={formData.name.showError}
+                                validationMessage={nameValidationMessage}
+                            />
+                        </div>
+                        <div>
+                            <label className="block mb-1 font-medium text-gray-700">Surname</label>
+                            <Input
+                                field='surname'
+                                value={formData.surname.value}
+                                onChangeHandler={handleValueChange}
+                                placeholder={formData.surname.value}
+                                type='text'
+                                onBlurHandler={handleValidationOnBlur}
+                                showErrorMessage={formData.surname.showError}
+                                validationMessage={surnameValidationMessage}
+                            />
+                        </div>
+                        <div>
+                            <label className="block mb-1 font-medium text-gray-700">Email</label>
+                            <Input 
+                                field='email'
+                                value={formData.email.value}
+                                onChangeHandler={handleValueChange}
+                                placeholder={formData.email.value}
+                                type='email'
+                                onBlurHandler={handleValidationOnBlur}
+                                showErrorMessage={formData.email.showError}
+                                validationMessage={emailValidationMessage}
+                            />
+                        </div>
+                        <div>
+                            <label className="block mb-1 font-medium text-gray-700">Username</label>
+                            <Input 
+                                field='username'
+                                onChangeHandler={handleValueChange}
+                                value={formData.username.value} 
+                                placeholder={formData.username.value}
+                                type='text'
+                                onBlurHandler={handleValidationOnBlur}
+                                showErrorMessage={formData.username.showError}
+                                validationMessage={usernameValidationMessage}
+                            />
+                        </div>
+                        <div>
+                            <label className="block mb-1 font-medium text-gray-700">Phone</label>
+                            <Input 
+                                field='phone'
+                                onChangeHandler={handleValueChange}
+                                value={formData.phone.value} 
+                                type='text'
+                                onBlurHandler={handleValidationOnBlur}
+                                showErrorMessage={formData.phone.showError}
+                                validationMessage={phoneValidationMessage}
+                            />
+                        </div>
+                        <div>
+                            <label className="block mb-1 font-medium text-gray-700">Address</label>
+                            <Input 
+                                field='address'
+                                onChangeHandler={handleValueChange}
+                                value={formData.address.value} 
+                                type='text'
+                                onBlurHandler={handleValidationOnBlur}
+                                showErrorMessage={formData.address.showError}
+                                validationMessage={addressValidationMessage}
+                            />
+                        </div>
+                        <div>
+                            <label className="block mb-1 font-medium text-gray-700">Password</label>
+                            <Input 
+                                field='password'
+                                onChangeHandler={handleValueChange}
+                                value={formData.password.value} 
+                                type='password'
+                                onBlurHandler={handleValidationOnBlur}
+                                showErrorMessage={formData.password.showError}
+                                validationMessage={passwordValidationMessage}
+                            />
+                        </div>
+                        <div>
+                            <label className="block mb-1 font-medium text-gray-700">Password Confirmation</label>
+                            <Input 
+                                field='confirmPassword'
+                                onChangeHandler={handleValueChange}
+                                value={formData.confirmPassword.value} 
+                                type='password'
+                                onBlurHandler={handleValidationOnBlur}
+                                showErrorMessage={formData.confirmPassword.showError}
+                                validationMessage={passConfirmValidationMessage}
+                            />
+                        </div>
+                        <div>
+                            <label className="block mb-1 font-medium text-gray-700">Profile Picture</label>
+                            <Input
+                                field='profilePicture'
+                                value={formData.profilePicture.value}
+                                onChangeHandler={handleValueChange}
+                                type='file'
+                                onBlurHandler={handleValidationOnBlur}
+                                showErrorMessage={formData.profilePicture.showError}
+                                validationMessage={profilePictureValidationMessage} 
+                            />
+                        </div>
+
+                        <button
+                            type="submit"
+                            disabled={isSubmitButtonDisable}
+                            className={`w-full py-2 rounded-md text-white transition ${
+                                isSubmitButtonDisable
+                                    ? 'bg-blue-300 cursor-not-allowed'
+                                    : 'bg-blue-600 hover:bg-blue-700'
+                            }`}
+                        >
+                            Enviar
+                        </button>
+                    </form>
+
+                    <p className="text-center text-sm mt-6 text-gray-600">
+                        ¿Ya tienes una cuenta?{" "}
+                        <span
+                            onClick={switchAuthHandler}
+                            className="text-blue-600 hover:underline cursor-pointer"
+                        >
+                            ¡Inicia sesión acá!
+                        </span>
+                    </p>
+                </div>
             </div>
-            <div >
-            <label>Surname</label>
-            <Input
-                field='surname'
-                value={formData.surname.value}
-                onChangeHandler={handleValueChange}
-                placeholder={formData.surname.value}
-                type='text'
-                onBlurHandler={handleValidationOnBlur}
-                showErrorMessage={formData.surname.showError}
-                validationMessage={surnameValidationMessage}
-            />
-            </div>
-            <div >
-            <label>Email</label>
-            <Input 
-                field='email'
-                value={formData.email.value}
-                onChangeHandler={handleValueChange}
-                placeholder={formData.email.value}
-                type='email'
-                onBlurHandler={handleValidationOnBlur}
-                showErrorMessage={formData.email.showError}
-                validationMessage={emailValidationMessage}
-            />
-            </div>
-            <div >
-            <label>Username</label>
-            <Input 
-                field='username'
-                onChangeHandler={handleValueChange}
-                value={formData.username.value} 
-                placeholder={formData.username.value}
-                type='text'
-                onBlurHandler={handleValidationOnBlur}
-                showErrorMessage={formData.username.showError}
-                validationMessage={usernameValidationMessage}
-            />
-            </div>
-            <div className="mb-6">
-            <label>Phone</label>
-            <Input 
-                field='phone'
-                onChangeHandler={handleValueChange}
-                value={formData.phone.value} 
-                type='text'
-                onBlurHandler={handleValidationOnBlur}
-                showErrorMessage={formData.phone.showError}
-                validationMessage={phoneValidationMessage}
-            />
-            </div>
-            <div className="mb-6">
-            <label>Adress</label>
-            <Input 
-                field='address'
-                onChangeHandler={handleValueChange}
-                value={formData.address.value} 
-                type='text'
-                onBlurHandler={handleValidationOnBlur}
-                showErrorMessage={formData.address.showError}
-                validationMessage={addressValidationMessage}
-            />
-            </div>
-            <div >
-            <label>Password</label>
-            <Input 
-                field='password'
-                onChangeHandler={handleValueChange}
-                value={formData.password.value} 
-                type='password'
-                onBlurHandler={handleValidationOnBlur}
-                showErrorMessage={formData.password.showError}
-                validationMessage={passwordValidationMessage}
-            />
-            </div>
-            <div >
-            <label>Password Confirmation</label>
-            <Input 
-                field='confirmPassword'
-                onChangeHandler={handleValueChange}
-                value={formData.confirmPassword.value} 
-                type='password'
-                onBlurHandler={handleValidationOnBlur}
-                showErrorMessage={formData.confirmPassword.showError}
-                validationMessage={passConfirmValidationMessage}
-            />
-            </div>
-            <div className="mb-6 ">
-            <label>Profile Picture</label>
-            <Input
-                field='profilePicture'
-                value={formData.profilePicture.value}
-                onChangeHandler={handleValueChange}
-                type='file'
-                onBlurHandler={handleValidationOnBlur}
-                showErrorMessage={formData.profilePicture.showError}
-                validationMessage={profilePictureValidationMessage} 
+
+            {/* Right column - image */}
+            <div className="hidden md:block md:w-1/2 relative">
+                <img
+                    src="/images/evento.png"
+                    alt="Evento"
+                    className="absolute inset-0 w-full h-full object-cover"
                 />
             </div>
-            <button
-            disabled={isSubmitButtonDisable} type='submit'>Enviar</button>
-            <span onClick={switchAuthHandler} >
-                ¿Ya tienes una cuenta? ¡Inicia sesión acá!
-            </span>
-        </form>
+        </div>
     )
 }
