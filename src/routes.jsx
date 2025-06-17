@@ -5,7 +5,9 @@ import { CategoriesPage } from "./pages/CategoriesPage";
 import NotFoundPage from "./pages/NotFoundPage";
 import { Categories } from "./components/Categories/Categories";
 import { CategoryForm } from "./components/Categories/CategoryForm";
-
+import { UpdatePage } from "./pages/userPages/updatePage";
+import { ChangePasswordPage } from "./pages/userPages/changePasswordPage";
+import { UsersPage } from "./pages/userPages/UsersPage";
 
 export const routes=[
     {
@@ -31,7 +33,19 @@ export const routes=[
             {
                 path:'updateCategory/:id',
                 element:<CategoryForm/>
+            },
+            {
+                path:'updateProfile',
+                element:<UpdatePage/>
+            },
+            {
+                path:'updatePassword',
+                element:<ChangePasswordPage/>
             }
         ]
+    },
+    {
+        path:'/users',
+        element:<UsersPage/>
     }
 ]
