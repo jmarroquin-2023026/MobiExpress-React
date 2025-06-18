@@ -45,6 +45,7 @@ export const Input = ({
                         onChange={handleValueChange}
                         onBlur={handleOnBlur}
                         placeholder={placeholder}
+                        className='p-2 mb-2 w-full box-border'
                     />
                 )
             }
