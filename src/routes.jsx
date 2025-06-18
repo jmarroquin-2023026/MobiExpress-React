@@ -5,9 +5,14 @@ import { CategoriesPage } from "./pages/CategoriesPage";
 import NotFoundPage from "./pages/NotFoundPage";
 import { Categories } from "./components/Categories/Categories";
 import { CategoryForm } from "./components/Categories/CategoryForm";
-import { UpdatePage } from "./pages/userPages/updatePage";
-import { ChangePasswordPage } from "./pages/userPages/changePasswordPage";
-import { UsersPage } from "./pages/userPages/UsersPage";
+import { UpdatePage } from "./components/User/UpdateInfo";
+import { ChangePasswordPage } from "./components/User/ChangePassword";
+import { Users } from "./components/User/Users";
+import { element } from "prop-types";
+import { AddEmployee } from "./components/User/AddEmployee";
+import { UsersConfPage } from "./pages/userPages/UsersConfPage";
+import { ProfileConfPage } from "./pages/userPages/ProfileConfPage";
+import { ChangeProfilePicture } from "./components/User/ChangeProfilePicture";
 
 export const routes=[
     {
@@ -35,17 +40,38 @@ export const routes=[
                 element:<CategoryForm/>
             },
             {
-                path:'updateProfile',
-                element:<UpdatePage/>
-            },
-            {
-                path:'updatePassword',
-                element:<ChangePasswordPage/>
+                path:'profile',
+                element:<ProfileConfPage/>,
+                children:[
+                    {
+                        path:'updateProfile',
+                        element:<UpdatePage/>
+                    },
+                    {
+                        path:'updatePassword',
+                        element:<ChangePasswordPage/>
+                    },
+                    {
+                        path:'changeProfilePicture',
+                        element:<ChangeProfilePicture/>
+                    },
+                    
+                ]
             }
         ]
     },
     {
         path:'/users',
-        element:<UsersPage/>
+        element:<UsersConfPage/>,
+        children:[
+            {
+                path:'getUsers',
+                element:<Users/>
+            },
+            {
+                path:'addEmployee',
+                element:<AddEmployee/>
+            }
+        ]
     }
 ]

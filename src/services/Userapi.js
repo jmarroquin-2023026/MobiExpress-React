@@ -3,7 +3,7 @@ import axios from "axios";
 const apiClient=axios.create(
     {
         baseURL:'http://localhost:2636/v1/',
-        timeout:2000
+        timeout:10000
     }
 )
 
@@ -53,6 +53,39 @@ export const changePasswordRequest = async(oldPass,newPass)=>{
 export const getUsersRequest = async()=>{
     try {
         return await apiClient.get('user/get-employes')
+    } catch (e) {
+        return{
+            error:true,
+            e
+        }
+    }
+}
+
+export const addEmployeeRequest = async(employe)=>{
+    try {
+        return await apiClient.post('user/employe-register',employe)
+    } catch (e) {
+        return{
+            error:true,
+            e
+        }
+    }
+}
+
+export const changeProfilePictureRequest = async(picture)=>{
+    try {
+        return await apiClient.put('user/update-picture',picture)
+    } catch (e) {
+        return{
+            error:true,
+            e
+        }
+    }
+}
+
+export const deleteProfileRequest = async(id)=>{
+    try {
+        return await apiClient.delete(`user/delete-employe/${id}`)
     } catch (e) {
         return{
             error:true,
