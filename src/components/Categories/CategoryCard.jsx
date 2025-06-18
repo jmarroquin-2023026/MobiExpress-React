@@ -1,10 +1,11 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
-import { useDeleteCategory } from "../../shared/hooks/categories/useDeleteCategory";
+import { useDeleteCategory } from "../../shared/hooks/categories/useDeleteCategory"
 
 export const CategoryCard = ({ name, id, picture, navigateToCategoryHandler }) => {
   const navigate=useNavigate()
+
   const {deleteCategory,isLoading}=useDeleteCategory()
 
   const handleNavigateToCategory = () => {
@@ -15,7 +16,7 @@ export const CategoryCard = ({ name, id, picture, navigateToCategoryHandler }) =
     navigate(`/dashboard/updateCategory/${id}`)
   }
 
-  const handleDeleteButton = async () => {
+   const handleDeleteButton = async () => {
     const confirmed = window.confirm('¿Estás seguro de que deseas eliminar esta categoria?')
     if (!confirmed) return
 
@@ -85,7 +86,7 @@ export const CategoryCard = ({ name, id, picture, navigateToCategoryHandler }) =
                 padding: "0.5rem 1rem",
                 borderRadius: "4px",
               }} */
-                onClick={(e) => {
+             onClick={(e) => {
                   e.stopPropagation()
                   handleDeleteButton()
               }}
@@ -93,7 +94,6 @@ export const CategoryCard = ({ name, id, picture, navigateToCategoryHandler }) =
   
             >
               {isLoading ? 'Eliminando...' : 'Eliminar'}
-
             </button>
             <button
               /* style={{

@@ -25,31 +25,31 @@ export const Input = ({
     }
 
     return (
-        <>
-            <div>
-                <span>{label}</span>
-            </div>
-            {
-                textarea ? (
-                    <textarea
-                        value={value}
-                        onChange={handleValueChange}
-                        onBlur={handleOnBlur}
-                        rows={5}
-                        placeholder={placeholder}
-                    />
-                ) : (
-                    <input
-                        type={type}
-                        value={type === 'file' ? undefined : value}
-                        onChange={handleValueChange}
-                        onBlur={handleOnBlur}
-                        placeholder={placeholder}
-                    />
-                )
-            }
-            <span>{showErrorMessage && validationMessage}</span>
-        </>
+        <div className="mb-4">
+            <label className="block text-sm font-medium text-gray-700 mb-1">{label}</label>
+            {textarea ? (
+                <textarea
+                    value={value}
+                    onChange={handleValueChange}
+                    onBlur={handleOnBlur}
+                    rows={5}
+                    placeholder={placeholder}
+                    className='w-full'
+                />
+            ) : (
+                <input
+                    type={type}
+                    value={type === 'file' ? undefined : value}
+                    onChange={handleValueChange}
+                    onBlur={handleOnBlur}
+                    placeholder={placeholder}
+                    className='w-full'
+                />
+            )}
+            {showErrorMessage && (
+                <p className="mt-1 text-sm text-red-600">{validationMessage}</p>
+            )}
+        </div>
     )
 }
 

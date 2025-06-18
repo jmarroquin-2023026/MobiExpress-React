@@ -5,6 +5,9 @@ import { CategoriesPage } from "./pages/CategoriesPage";
 import NotFoundPage from "./pages/NotFoundPage";
 import { Categories } from "./components/Categories/Categories";
 import { CategoryForm } from "./components/Categories/CategoryForm";
+import { CardForm } from "./components/Card/CardForm";
+import { SavedCards } from "./components/Card/SavedCards";
+
 import { UpdatePage } from "./components/User/UpdateInfo";
 import { ChangePasswordPage } from "./components/User/ChangePassword";
 import { Users } from "./components/User/Users";
@@ -73,5 +76,9 @@ export const routes=[
                 element:<AddEmployee/>
             }
         ]
+    },
+    {
+        path:'/card',
+        element:<SavedCards/>
     }
 ]

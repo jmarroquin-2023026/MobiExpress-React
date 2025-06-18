@@ -30,7 +30,7 @@ export const useRegister=()=>{
         }
         setError(false)
         toast.success('Registro exitoso')
-        navigate('/auth')
+        navigate('/')
     }
     return{
         register,
