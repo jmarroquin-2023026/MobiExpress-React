@@ -25,6 +25,8 @@ export const useLogin=()=>{
             )
         }
         localStorage.setItem('user',JSON.stringify(response?.data?.loggedUser))
+        localStorage.setItem('token', response?.data?.token);
+
         navigate('/dashboard/categories')
     }
     return{

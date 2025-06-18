@@ -8,7 +8,6 @@ export const CategoriesPage = () => {
   const location = useLocation()
 
   useEffect(() => {
-    // Se ejecuta cada vez que cambia la ruta (location)
     if (location.pathname === '/dashboard/categories') {
       getCategories()
     }

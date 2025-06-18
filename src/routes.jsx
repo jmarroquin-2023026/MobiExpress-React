@@ -5,6 +5,8 @@ import { CategoriesPage } from "./pages/CategoriesPage";
 import NotFoundPage from "./pages/NotFoundPage";
 import { Categories } from "./components/Categories/Categories";
 import { CategoryForm } from "./components/Categories/CategoryForm";
+import { CardForm } from "./components/Card/CardForm";
+import { SavedCards } from "./components/Card/SavedCards";
 
 
 export const routes=[
@@ -33,5 +35,9 @@ export const routes=[
                 element:<CategoryForm/>
             }
         ]
+    },
+    {
+        path:'/card',
+        element:<SavedCards/>
     }
 ]
