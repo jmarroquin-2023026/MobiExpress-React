@@ -3,8 +3,8 @@ export const categoryNameValidator=(name)=>{
     return regex.test(name.trim())
 }
 
-export const descriptionCategoryValidator=(description)=>{
-    const regex = /^[A-Za-zÁÉÍÓÚáéíóúÑñ]{10,150}$/
+export const descriptionCategoryValidator = (description) => {
+    const regex = /^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]{10,150}$/
     return regex.test(description.trim())
 }
 

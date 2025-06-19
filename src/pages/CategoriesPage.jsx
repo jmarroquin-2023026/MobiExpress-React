@@ -15,7 +15,7 @@ export const CategoriesPage = () => {
   }, [location])
 
   return (
-    <div>
+    <div className='mt-36'>
       <Navbar/>
       <DashboardContent categories={allCategories} getCategories={getCategories} />
     </div>

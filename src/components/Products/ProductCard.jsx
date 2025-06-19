@@ -55,7 +55,7 @@ export const ProductCard = ({ id, name, description, category, price, brand, sto
 
   return (
     isAdmin ? (
-      <div className="flex items-center justify-between bg-white border rounded p-4 w-full max-w-xl">
+      <div className="flex flex-col gap-2 w-full">
         <div className="flex items-center gap-4">
           <img
             src={images.length ? `http://localhost:2636/uploads/img/products/${images[0]}` : 'https://via.placeholder.com/50'}

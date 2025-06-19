@@ -87,7 +87,8 @@ export const CategoryCard = ({ name, id, picture, navigateToCategoryHandler }) =
               disabled={isLoading}
   
             >
-              details
+              
+              Products
             </button>
             <button
               /* style={{

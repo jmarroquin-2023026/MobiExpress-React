@@ -13,7 +13,7 @@ export const ProductsPage = () => {
   }, [location])
 
   return (
-    <div>
+    <div className='mt-36'>
       <Outlet context={{ products: allProducts, getProducts }} />
     </div>
   )

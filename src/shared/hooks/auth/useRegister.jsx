@@ -13,7 +13,8 @@ export const useRegister=()=>{
         setIsLoading(true)
         const response=await registerRequest(user)
         setIsLoading(false)
-
+        console.log(response.e);
+        
         if(response.error){
             setError(true)
             if(response?.e?.response?.data?.errors){

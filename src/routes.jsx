@@ -94,7 +94,16 @@ export const routes = [
     },
     {
         path: '/card',
-        element: <SavedCards />
+       children:[
+        {
+            path:'myCards',
+            element:<SavedCards/>
+        },
+        {
+            path:'addCard',
+            element:<CardForm/>
+        }
+       ]
     },
     {
         path: '/products',
