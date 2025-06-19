@@ -17,6 +17,16 @@ apiClient.interceptors.request.use(
     }
 )
 
+export const addProductRequest=async(data)=>{
+    try{
+        return await apiClient.post('/addProduct',data)
+    }catch(e){  
+        return {
+            error:true,
+            e
+        }
+    }
+}
 export const getProductsRequest=async()=>{
     try{
         return await apiClient.get('/getProduct')
@@ -63,9 +73,9 @@ export const getByName=async(id,products)=>{
     }
 }
 
-export const updateProductRequest=async(id,products)=>{
+export const updateProductRequest=async(id,product)=>{
     try{
-        const response=await apiClient.put(`/updateProduct/${id}`,products,{})
+        const response=await apiClient.put(`/updateProduct/${id}`,product,{})
         return response
     }catch(e){
         return{
