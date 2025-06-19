@@ -93,3 +93,25 @@ export const deleteProfileRequest = async(id)=>{
         }
     }
 }
+
+export const usernameExistRequest = async(username)=>{
+    try {
+        return await apiClient.post(`user/username-exist`,{username:username})
+    } catch (e) {
+        return{
+            error:true,
+            e
+        }
+    }
+}
+
+export const emailExistRequest = async(email)=>{
+    try {
+        return await apiClient.post(`user/email-exist`,{email:email})
+    } catch (e) {
+        return{
+            error:true,
+            e
+        }
+    }
+}

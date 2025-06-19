@@ -1,40 +1,80 @@
 import { useState } from 'react';
 import { useUser } from '../../shared/hooks/user/useUser';
+import { validatePassword } from '../../shared/validators/validators';
 
 export const ChangePasswordPage = () => {
     const [passwordMessage,setPasswordMessage]=useState('')
     const {changePassword}=useUser()
-    const [disabled,setDisabled]=useState(true)
     const [formData, setFormData] = useState({
-        oldPassword: '',
-        newPassword: '',
-        confirmPassword: ''
+        oldPassword:{
+            value:'',
+            error: true,
+        },
+        newPassword:{
+            value:'',
+            error: true,
+        },
+        confirmPassword:{
+            value:'',
+            error: true,
+        }
     });
 
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData(prev => ({
         ...prev,
-        [name]: value
+        [name] :{
+            ...prev[name],
+            value:value
+        }
         }));
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        changePassword(formData.oldPassword,formData.newPassword)
+        changePassword(formData.oldPassword.value,formData.newPassword.value)
         
     };
 
     const handlePasswordConfirmation = async()=>{
-        if(formData.newPassword === formData.confirmPassword){
+        if(formData.newPassword.value === formData.confirmPassword.value){
             setPasswordMessage('')
-            setDisabled(false)
+            setFormData(prev => ({
+                ...prev,
+                ['confirmPassword'] :{
+                    ...prev['confirmPassword'],
+                    error:false
+                }
+            }))
         }else{
             setPasswordMessage('La contraseña no coincide')
-            setDisabled(true)
+            setFormData(prev => ({
+                ...prev,
+                ['confirmPassword'] :{
+                    ...prev['confirmPassword'],
+                    error:true
+                }
+            }))
         }
     }
+    
+    const handleOnBlurPassword = async(e)=>{
+        const { name, value } = e.target
+        setFormData(prev => ({
+        ...prev,
+        [name] :{
+            ...prev[name],
+            error:!validatePassword(value)
+        }
+        }))
 
+        console.log(isButtonDisabled);
+        
+    }
+
+    const isButtonDisabled = formData.newPassword.error||formData.oldPassword.error
+    ||formData.confirmPassword.error
     return (
         <div>
         <h1>Cambiar Contraseña</h1>
@@ -45,8 +85,9 @@ export const ChangePasswordPage = () => {
             <input
                 type="password"
                 name="oldPassword"
-                value={formData.oldPassword}
+                value={formData.oldPassword.value}
                 onChange={handleChange}
+                onBlur={handleOnBlurPassword}
             />
             </div>
 
@@ -55,9 +96,10 @@ export const ChangePasswordPage = () => {
             <input
                 type="password"
                 name="newPassword"
-                value={formData.newPassword}
+                value={formData.newPassword.value}
                 onChange={handleChange}
                 required
+                onBlur={handleOnBlurPassword}
             />
             </div>
 
@@ -66,7 +108,7 @@ export const ChangePasswordPage = () => {
             <input
                 type="password"
                 name="confirmPassword"
-                value={formData.confirmPassword}
+                value={formData.confirmPassword.value}
                 onChange={handleChange}
                 onBlur={handlePasswordConfirmation}
                 required
@@ -74,7 +116,7 @@ export const ChangePasswordPage = () => {
             <span>{passwordMessage}</span>
             </div>
 
-            <button type="submit" disabled={disabled}>
+            <button type="submit" disabled={isButtonDisabled}>
                 Cambiar Contraseña
             </button>
         </form>

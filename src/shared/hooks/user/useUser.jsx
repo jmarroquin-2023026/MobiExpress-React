@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { addEmployeeRequest, changePasswordRequest, changeProfilePictureRequest, deleteProfileRequest, getUserRequest, getUsersRequest, updateUserRequest } from "../../../services/Userapi";
+import { addEmployeeRequest, changePasswordRequest, changeProfilePictureRequest, deleteProfileRequest, emailExistRequest, getUserRequest, getUsersRequest, updateUserRequest, usernameExistRequest } from "../../../services/Userapi";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 
@@ -7,6 +7,8 @@ export const useUser=()=>{
     const [isLoading,setIsLoading]=useState(false)
     const [userData,setUserData]=useState(null)
     const [users,setUsers]=useState([])
+    const [usernameMessage,setUserNameMessage]=useState('')
+    const [emailMessage,setEmailMessage]=useState('')
     const navigate = useNavigate()
     const updateUser = async(id,data)=>{
         setIsLoading(true)
@@ -110,6 +112,36 @@ export const useUser=()=>{
         navigate('/auth')
     }
 
+    const usernameExist = async(username)=>{
+        setIsLoading(true)
+        const response = await usernameExistRequest(username)
+        if(response.error){
+            setUserNameMessage('El usuario escrito ya existe')
+            return toast.error(
+                response?.e?.response?.data?.message||
+                'Error al verificar si el usuario ya existe. Intente de nuevo'
+            )
+        }else if(response.data.message === 'El Usuario no existe'){
+            setUserNameMessage('')
+        }
+            
+    }
+
+    const emailExist = async(email)=>{
+        setIsLoading(true)
+        const response = await emailExistRequest(email)
+        if(response.error){
+            setEmailMessage('El email escrito ya existe')
+            return toast.error(
+                response?.e?.response?.data?.message||
+                'Error al verificar si el email ya existe. Intente de nuevo'
+            )
+        }else if(response.data.message === 'El Email no existe'){
+            setEmailMessage('')
+        }
+            
+    }
+
     return{
         updateUser,
         isLoading,
@@ -121,6 +153,10 @@ export const useUser=()=>{
         setUsers,
         addEmployee,
         changeProfilePicture,
-        deleteProfile
+        deleteProfile,
+        usernameExist,
+        usernameMessage,
+        emailExist,
+        emailMessage
     }
 }
