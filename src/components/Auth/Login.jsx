@@ -105,15 +105,13 @@ export const Login = ({ switchAuthHandler }) => {
                     </p>
                 </div>
             </div>
-
-            {/* Columna derecha - imagen */}
             <div className="hidden md:block md:w-1/2">
                 <img
                     src="/images/Event1.jpg"
                     alt="Evento"
                     className="w-full h-full object-cover"
                 />
-                <div className="text-center mt-2 text-sm text-gray-600">Evento</div>
+                <div className="text-center mt-2 text-sm text-gray-600"></div>
             </div>
         </div>
     );
