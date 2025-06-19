@@ -18,6 +18,7 @@ import { ProfileConfPage } from "./pages/userPages/ProfileConfPage";
 import { ChangeProfilePicture } from "./components/User/ChangeProfilePicture";
 import { ProductsPage } from "./pages/ProductsPage";
 import { Products } from "./components/Products/Products";
+import { OrderCard } from "./components/Order/OrderCard";
 
 export const routes=[
     {
@@ -92,5 +93,9 @@ export const routes=[
                 element:<Products/>
             },
         ]
+    },
+    {
+        path:'/orders',
+        element:<OrderCard/>
     }
 ]
