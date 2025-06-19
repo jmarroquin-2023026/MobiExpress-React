@@ -1,29 +1,25 @@
-import React, { useState } from 'react'
-import { getCategoriesRequest } from '../../../services/Categoryapi'
-import toast from 'react-hot-toast'
+import { useEffect, useState } from "react"
+import { getCategoriesRequest } from "../../../services/Categoryapi"
 
 export const useCategories = () => {
-    const [categories,setCategories]=useState(null)
-    const getCategories=async()=>{
-        const categoriesData=await getCategoriesRequest()
-         console.log('Respuesta de categorías:', categoriesData)
-        if(categoriesData.error){
-            return toast.error(
-                categoriesData?.e?.response?.data||
-                'Error al obtener las categorias'
-            )
-        }
-        setCategories(
-            {
-                categories: categoriesData.data.categories
-            }
-        )
+  const [categories, setCategories] = useState([])
+  const [isLoading, setIsLoading] = useState(true)
+  const [error, setError] = useState(false)
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await getCategoriesRequest()
+        setCategories(response.data.categories) // asegúrate que aquí esté el array correcto
+      } catch (err) {
+        setError(true)
+      } finally {
+        setIsLoading(false)
+      }
     }
 
-  return {
-    getCategories,
-    isFetching:!categories,
-    allCategories: categories?.categories||[]
-  }
-}
+    fetchData()
+  }, [])
 
+  return { categories, isLoading, error }
+}

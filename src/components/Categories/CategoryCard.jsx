@@ -12,6 +12,10 @@ export const CategoryCard = ({ name, id, picture, navigateToCategoryHandler }) =
     navigateToCategoryHandler(id)
 }
 
+  const searchByCategory = (id) => {
+    navigate(`/dashboard/searchByCategory/${id}`)
+  }
+
   const handleEditButton=(id)=>{
     navigate(`/dashboard/updateCategory/${id}`)
   }
@@ -66,6 +70,24 @@ export const CategoryCard = ({ name, id, picture, navigateToCategoryHandler }) =
   
             >
               {isLoading ? 'Eliminando...' : 'Eliminar'}
+            </button>
+            <button
+             /*  style={{
+                backgroundColor: "#f44336",
+                color: "#fff",
+                border: "none",
+                padding: "0.5rem 1rem",
+                borderRadius: "4px",
+              }} */
+              className="bg-red-500 text-white px-4 py-2 rounded"
+              onClick={(e) => {
+                e.stopPropagation()
+                searchByCategory(id)
+              }}
+              disabled={isLoading}
+  
+            >
+              details
             </button>
             <button
               /* style={{

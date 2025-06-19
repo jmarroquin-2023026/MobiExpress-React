@@ -1,3 +1,4 @@
+// useGetByCategory.jsx
 import React, { useState } from 'react'
 import { getByCategoryRequest } from '../../../services/Productsapi'
 import toast from 'react-hot-toast'
@@ -5,13 +6,15 @@ import toast from 'react-hot-toast'
 export const useGetByCategory = () => {
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState(false)
+  const [products, setProducts] = useState([]) // ← Agregado
 
-  const getByCategory = async (id, products) => {
+  const getByCategory = async (id) => {
     setIsLoading(true)
     try {
-      const response = await getByCategoryRequest(id, products)
+      const response = await getByCategoryRequest(id)
+      setProducts(response.data.products) // Asegúrate que la respuesta tenga .products
       setIsLoading(false)
-      toast.success('Productos encontrados con esta categoria:')
+      toast.success('Productos encontrados con esta categoría:')
       setError(false)
       return true
     } catch (e) {
@@ -23,7 +26,7 @@ export const useGetByCategory = () => {
       } else {
         toast.error(
           e?.response?.data?.msg ||
-          'Error al actualizar categoría. Intenta de nuevo'
+          'Error al buscar productos. Intenta de nuevo'
         )
       }
       return false;
@@ -34,6 +37,7 @@ export const useGetByCategory = () => {
     getByCategory,
     isLoading,
     error,
+    products, // ← Agregado
     setError,
   };
 };

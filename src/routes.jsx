@@ -18,6 +18,9 @@ import { ProfileConfPage } from "./pages/userPages/ProfileConfPage";
 import { ChangeProfilePicture } from "./components/User/ChangeProfilePicture";
 import { ProductsPage } from "./pages/ProductsPage";
 import { Products } from "./components/Products/Products";
+import { HomePage } from "./pages/HomePage";
+import {getByCategorie} from './components/Products/getByCategorie'
+
 import { OrderCard } from "./components/Order/OrderCard";
 import { UserOrderCard } from "./components/Order/UserOrderCard";
 
@@ -29,6 +32,10 @@ export const routes = [
     {
         path: '/',
         element: <AuthPage />
+    },
+    {
+        path:'/HomePage',
+        element:<HomePage/>
     },
     {
         path: '/dashboard',
@@ -45,6 +52,10 @@ export const routes = [
             {
                 path: 'updateCategory/:id',
                 element: <CategoryForm />
+            },
+            {
+                path:'/dashboard/searchByCategory/:id',
+                element:<getByCategorie/> 
             },
             {
                 path: 'profile',
