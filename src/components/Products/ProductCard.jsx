@@ -6,123 +6,127 @@ import { toast } from 'react-toastify'
 
 export const ProductCard = ({ id, name, description, category, price, brand, stock, images, navigateToProductHandler }) => {
 
-    const ProductImage = ({ urls = [] }) => {
-        return (
-            <div className="relative pt-[100%] bg-gray-100 overflow-hidden rounded-t-lg">
-                {urls.length > 0 ? (
-                    <img
-                        src={`http://localhost:2636/uploads/img/products/${urls[0]}`}
-                        alt={name}
-                        className="absolute top-0 left-0 object-contain p-4"
-                    />
-                ) : (
-                    <div className="absolute top-0 left-0 w-34 h-52 flex items-center justify-center text-gray-400">
-                        Sin imagen
-                    </div>
-                )}
-            </div>
-        )
+  const ProductImage = ({ urls = [] }) => (
+    <div className="relative pt-[100%] bg-gray-100 overflow-hidden rounded-t-lg">
+      {urls.length > 0 ? (
+        <img
+          src={`http://localhost:2636/uploads/img/products/${urls[0]}`}
+          alt={name}
+          className="absolute top-0 left-0 object-contain p-4"
+        />
+      ) : (
+        <div className="absolute top-0 left-0 w-34 h-52 flex items-center justify-center text-gray-400">
+          Sin imagen
+        </div>
+      )}
+    </div>
+  )
+
+  const { deleteProduct, isLoading } = useDeleteProduct()
+  const navigate = useNavigate()
+
+  const handleNavigateToProduct = () => {
+    navigateToProductHandler(id)
+  }
+
+  const handleEditButton = (e) => {
+    e.stopPropagation()
+    navigate(`/products/update/${id}`)
+  }
+
+  const handleDetailsButton = (e) => {
+    e.stopPropagation()
+    navigate(`/products/details/${id}`)
+  }
+
+  const handleDeleteButton = async (e) => {
+    e.stopPropagation()
+    const confirmed = window.confirm('¿Estás seguro de eliminar este producto?')
+    if (!confirmed) return
+
+    const success = await deleteProduct(id)
+    if (success) {
+      toast.success('Producto eliminado con éxito')
+      window.location.reload()
     }
+  }
 
-    const { deleteProduct, isLoading } = useDeleteProduct()
-    const navigate = useNavigate()
+  const isAdmin = JSON.parse(localStorage.getItem("user"))?.role === "ADMIN"
 
-    const handleNavigateToProduct = () => {
-        navigateToProductHandler(id)
-    }
+  return (
+    isAdmin ? (
+      <div className="flex items-center justify-between bg-white border rounded p-4 w-full max-w-xl">
+        <div className="flex items-center gap-4">
+          <img
+            src={images.length ? `http://localhost:2636/uploads/img/products/${images[0]}` : 'https://via.placeholder.com/50'}
+            alt={name}
+            className="w-12 h-12 object-contain"
+          />
+          <span className="text-sm font-medium text-gray-800 bg-gray-100 px-3 py-1 rounded">{name}</span>
+        </div>
 
-    const handleEditButton = (e, id) => {
-        e.stopPropagation()
-        navigate(`/products/update/${id}`)
-    }
+        <div className="flex gap-2">
+          <button
+            onClick={handleDetailsButton}
+            className="px-4 py-2 bg-green-500 hover:bg-green-600 text-white rounded"
+          >
+            Detalles
+          </button>
 
-    const handleDeleteButton = async (e) => {
-        e.stopPropagation()
-        const confirmed = window.confirm('¿Estás seguro de eliminar este producto?')
-        if (!confirmed) return
+          <button
+            onClick={handleEditButton}
+            className="px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded"
+          >
+            Actualizar
+          </button>
 
-        const success = await deleteProduct(id)
-        if (success) {
-            toast.success('Producto eliminado con éxito')
-            window.location.reload()
-        }
-    }
-    console.log("CATEGORÍA:", category)
+          <button
+            onClick={handleDeleteButton}
+            disabled={isLoading}
+            className={`px-4 py-2 rounded text-white ${isLoading ? 'bg-gray-400 cursor-not-allowed' : 'bg-red-500 hover:bg-red-600'}`}
+          >
+            {isLoading ? 'Eliminando...' : 'Eliminar'}
+          </button>
+        </div>
+      </div>
+    ) : (
+      <div
+        onClick={handleNavigateToProduct}
+        className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow cursor-pointer w-56"
+      >
+        <ProductImage urls={images} />
 
-    const isAdmin = JSON.parse(localStorage.getItem("user"))?.role === "ADMIN"
+        <div className="p-4">
+          <div className="w-full flex">
+            <span className="text-xs text-gray-400">{brand}</span>
+          </div>
 
-    return (
-        isAdmin ? (
-            <div className="flex items-center justify-between bg-white border rounded p-4 w-full max-w-xl">
-                <div className="flex items-center gap-4">
-                    <img
-                        src={images.length ? `http://localhost:2636/uploads/img/products/${images[0]}` : 'https://via.placeholder.com/50'}
-                        alt={name}
-                        className="w-12 h-12 object-contain"
-                    />
-                    <span className="text-sm font-medium text-gray-800 bg-gray-100 px-3 py-1 rounded">{name}</span>
-                </div>
-
-                <div className="flex gap-2">
-                    <button
-                        onClick={handleDeleteButton}
-                        disabled={isLoading}
-                        className={`px-4 py-2 rounded text-white ${isLoading ? 'bg-gray-400 cursor-not-allowed' : 'bg-red-500 hover:bg-red-600'
-                            }`}
-                    >
-                        {isLoading ? 'Eliminando...' : 'Eliminar'}
-                    </button>
-
-                    <button
-                        onClick={(e) => handleEditButton(e, id)}
-                        className="px-4 py-2 bg-blue-400 hover:bg-blue-500 text-white rounded"
-                    >
-                        Actualizar
-                    </button>
-                </div>
-            </div>
-        ) : (
-            <div
-                onClick={handleNavigateToProduct}
-                className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow cursor-pointer w-56"
-            >
-                <ProductImage urls={images} />
-
-                <div className="p-4">
-                    <div className="w-full flex">
-                        <span className="text-xs text-gray-400">{brand}</span>
-                    </div>
-
-                    <div className="flex  gap-1 mb-2 ">
-
-                    </div>
-                    <p className="text-black text-sm line-clamp-2 mb-3 text-left">{description}</p>
-                    <div className="flex justify-between items-start mb-1">
-                        <h3 className="font-semibold text-lg truncate">{name}</h3>
-                        <span className="font-bold text-amber-500">Q{price}</span>
-                    </div>
-                    <div className="w-full flex">
-                        {category && (
-                            <span className="inline-block text-gray-400 py-1 text-[10px] xs:text-xx sm:text-xs rounded-full whitespace-nowrap">
-                                {category}
-                            </span>
-                        )}
-                    </div>
-                </div>
-            </div>
-        )
+          <p className="text-black text-sm line-clamp-2 mb-3 text-left">{description}</p>
+          <div className="flex justify-between items-start mb-1">
+            <h3 className="font-semibold text-lg truncate">{name}</h3>
+            <span className="font-bold text-amber-500">Q{price}</span>
+          </div>
+          <div className="w-full flex">
+            {category && (
+              <span className="inline-block text-gray-400 py-1 text-[10px] xs:text-xx sm:text-xs rounded-full whitespace-nowrap">
+                {category}
+              </span>
+            )}
+          </div>
+        </div>
+      </div>
     )
-
+  )
 }
 
 ProductCard.propTypes = {
-    id: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
-    description: PropTypes.string.isRequired,
-    price: PropTypes.number.isRequired,
-    stock: PropTypes.number.isRequired,
-    brand: PropTypes.string.isRequired,
-    images: PropTypes.array.isRequired,
-    category: PropTypes.string.isRequired,
-    navigateToProductHandler: PropTypes.func.isRequired
+  id: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  description: PropTypes.string.isRequired,
+  price: PropTypes.number.isRequired,
+  stock: PropTypes.number.isRequired,
+  brand: PropTypes.string.isRequired,
+  images: PropTypes.array.isRequired,
+  category: PropTypes.string.isRequired,
+  navigateToProductHandler: PropTypes.func.isRequired
 }
