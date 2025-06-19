@@ -16,6 +16,8 @@ import { AddEmployee } from "./components/User/AddEmployee";
 import { UsersConfPage } from "./pages/userPages/UsersConfPage";
 import { ProfileConfPage } from "./pages/userPages/ProfileConfPage";
 import { ChangeProfilePicture } from "./components/User/ChangeProfilePicture";
+import { ProductsPage } from "./pages/ProductsPage";
+import { Products } from "./components/Products/Products";
 
 export const routes=[
     {
@@ -80,5 +82,15 @@ export const routes=[
     {
         path:'/card',
         element:<SavedCards/>
+    },
+    {
+        path:'/products',
+        element:<ProductsPage/>,
+        children:[
+            {
+                path:'list',
+                element:<Products/>
+            },
+        ]
     }
 ]
