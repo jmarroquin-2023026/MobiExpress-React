@@ -138,7 +138,7 @@ export const AddEmployee = () => {
           accept="image/jpeg, image/png, image/jpg"
           onChange={handleFileChange}
         />
-      </label>
+      </div>
 
       <button type="submit">Guardar</button>
     </form>

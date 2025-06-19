@@ -131,6 +131,6 @@ export const UpdatePage = () => {
             <button type="submit">Actualizar Usuario</button>
             </form>
             <DeleteProfile/>
-        </>
+        </div>
     );
 };
