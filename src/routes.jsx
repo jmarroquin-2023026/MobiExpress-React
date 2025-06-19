@@ -18,79 +18,94 @@ import { ProfileConfPage } from "./pages/userPages/ProfileConfPage";
 import { ChangeProfilePicture } from "./components/User/ChangeProfilePicture";
 import { ProductsPage } from "./pages/ProductsPage";
 import { Products } from "./components/Products/Products";
+import { OrderCard } from "./components/Order/OrderCard";
+import { UserOrderCard } from "./components/Order/UserOrderCard";
 
-export const routes=[
+export const routes = [
     {
-        path:'/auth',
-        element:<Login/>
+        path: '/auth',
+        element: <Login />
     },
     {
-        path:'/',
-        element:<AuthPage/>
+        path: '/',
+        element: <AuthPage />
     },
     {
-        path:'/dashboard',
-        element:<CategoriesPage/>,
-        children:[
+        path: '/dashboard',
+        element: <CategoriesPage />,
+        children: [
             {
-                path:'categories',
-                element:<Categories/>
+                path: 'categories',
+                element: <Categories />
             },
             {
-                path:'addCategory',
-                element:<CategoryForm/>
+                path: 'addCategory',
+                element: <CategoryForm />
             },
             {
-                path:'updateCategory/:id',
-                element:<CategoryForm/>
+                path: 'updateCategory/:id',
+                element: <CategoryForm />
             },
             {
-                path:'profile',
-                element:<ProfileConfPage/>,
-                children:[
+                path: 'profile',
+                element: <ProfileConfPage />,
+                children: [
                     {
-                        path:'updateProfile',
-                        element:<UpdatePage/>
+                        path: 'updateProfile',
+                        element: <UpdatePage />
                     },
                     {
-                        path:'updatePassword',
-                        element:<ChangePasswordPage/>
+                        path: 'updatePassword',
+                        element: <ChangePasswordPage />
                     },
                     {
-                        path:'changeProfilePicture',
-                        element:<ChangeProfilePicture/>
+                        path: 'changeProfilePicture',
+                        element: <ChangeProfilePicture />
                     },
-                    
+
                 ]
             }
         ]
     },
     {
-        path:'/users',
-        element:<UsersConfPage/>,
-        children:[
+        path: '/users',
+        element: <UsersConfPage />,
+        children: [
             {
-                path:'getUsers',
-                element:<Users/>
+                path: 'getUsers',
+                element: <Users />
             },
             {
-                path:'addEmployee',
-                element:<AddEmployee/>
+                path: 'addEmployee',
+                element: <AddEmployee />
             }
         ]
     },
     {
-        path:'/card',
-        element:<SavedCards/>
+        path: '/card',
+        element: <SavedCards />
     },
     {
-        path:'/products',
-        element:<ProductsPage/>,
-        children:[
+        path: '/products',
+        element: <ProductsPage />,
+        children: [
             {
-                path:'list',
-                element:<Products/>
+                path: 'list',
+                element: <Products />
             },
+        ]
+    },
+    {
+        path: '/orders',
+        children: [
+            {
+                path: 'Allorders',
+                element: <OrderCard/>
+            },
+            {
+                path:'MyOrder',
+                element:<UserOrderCard/>
+            }
         ]
     }
 ]
