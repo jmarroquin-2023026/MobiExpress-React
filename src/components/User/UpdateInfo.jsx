@@ -118,30 +118,19 @@ export const UpdatePage = () => {
           />
         </div>
 
-        <div className="flex flex-wrap gap-4 justify-center pt-4">
-          <button
-            type="submit"
-            className="bg-sky-400 hover:bg-sky-500 text-white px-4 py-2 rounded"
-          >
-            Update
-          </button>
-          <DeleteProfile className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded" />
+            <div>
+                <label>Dirección:</label>
+                <input
+                type="text"
+                name="address"
+                value={formData.address}
+                onChange={handleChange}
+                />
+            </div>
 
-          <button
-            type="button"
-            className="bg-yellow-300 hover:bg-yellow-400 text-black px-4 py-2 rounded"
-          >
-            Change password
-          </button>
-
-          <button
-            type="button"
-            className="bg-green-400 hover:bg-green-500 text-white px-4 py-2 rounded"
-          >
-            Historial
-          </button>
-        </div>
-      </form>
-    </div>
-  )
-}
+            <button type="submit">Actualizar Usuario</button>
+            </form>
+            <DeleteProfile/>
+        </>
+    );
+};

@@ -48,7 +48,7 @@ export const Login = ({ switchAuthHandler }) => {
             <div className="w-full md:w-1/2 flex items-center justify-center bg-white">
                 <div className="max-w-md w-full px-6 py-12 shadow-md rounded-md bg-white">
                     <div className="text-center mb-6">
-                        <img src="/logo.png" alt="Logo" className="h-12 mx-auto mb-2" />
+                        <img src="/images/Mobi.png" alt="Logo" className="h-45 mx-auto mb-2" />
                         <h2 className="text-2xl font-bold text-gray-700">Mobi Express</h2>
                     </div>
 
@@ -105,15 +105,13 @@ export const Login = ({ switchAuthHandler }) => {
                     </p>
                 </div>
             </div>
-
-            {/* Columna derecha - imagen */}
             <div className="hidden md:block md:w-1/2">
                 <img
-                    src="/evento.png"
+                    src="/images/Event1.jpg"
                     alt="Evento"
                     className="w-full h-full object-cover"
                 />
-                <div className="text-center mt-2 text-sm text-gray-600">Evento</div>
+                <div className="text-center mt-2 text-sm text-gray-600"></div>
             </div>
         </div>
     );

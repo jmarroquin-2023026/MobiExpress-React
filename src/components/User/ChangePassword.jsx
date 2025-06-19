@@ -102,4 +102,5 @@ export const ChangePasswordPage = () => {
             </div>
         </div>
     )
+
 }

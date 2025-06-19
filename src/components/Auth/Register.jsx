@@ -156,7 +156,7 @@ export const Register = ({ switchAuthHandler }) => {
             <div className="w-full md:w-1/2 flex items-center justify-center bg-white">
                 <div className="max-w-md w-full px-6 py-12 rounded-md ">
                     <div className="text-center mb-6">
-                        <img src="/logo.png" alt="Logo" className="h-12 mx-auto mb-2" />
+                        <img src="/images/Mobi.png" alt="Logo" className="h-40 mx-auto mb-2" />
                         <h2 className="text-2xl font-bold text-gray-700 mb-4">Registro</h2>
                     </div>
 
@@ -314,7 +314,7 @@ export const Register = ({ switchAuthHandler }) => {
             {/* Right column - image */}
             <div className="hidden md:block md:w-1/2 relative">
                 <img
-                    src="/images/evento.png"
+                    src="/images/Event.jpg"
                     alt="Evento"
                     className="absolute inset-0 w-full h-full object-cover"
                 />
