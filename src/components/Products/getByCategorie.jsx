@@ -1,9 +1,9 @@
 import { useEffect } from "react"
 import { useParams } from "react-router-dom"
 import { useGetByCategory } from "../../shared/hooks/products/useGetByCategory"
-import { ProductCard } from "../../components/Products/ProductCard"
+import { ProductCard } from "./ProductCard"
 
-export const getByCategorie = () => {
+export const GetByCategorie = () => {
   const { id } = useParams()
   const { getByCategory, products, isLoading, error } = useGetByCategory()
 

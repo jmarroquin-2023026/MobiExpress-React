@@ -6,7 +6,7 @@ export const Categories = () => {
     const {categories}=useOutletContext()
 
   return (
-    <div>
+    <div className='mt-30'>
       <h1>Categorias</h1>
       {
         categories.map((category)=>(

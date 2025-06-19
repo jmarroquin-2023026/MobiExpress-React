@@ -76,7 +76,7 @@ export const ChangePasswordPage = () => {
     const isButtonDisabled = formData.newPassword.error||formData.oldPassword.error
     ||formData.confirmPassword.error
     return (
-        <div>
+        <div className='mt-30'>
         <h1>Cambiar Contraseña</h1>
         
         <form onSubmit={handleSubmit}>

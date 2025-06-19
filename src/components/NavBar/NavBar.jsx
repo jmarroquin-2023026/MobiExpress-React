@@ -1,55 +1,58 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { FaUserCircle, FaShoppingCart, FaTh } from 'react-icons/fa';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const isLogged=true
+  const isLogged = true;
 
   return (
-    <nav>
-      <div>
-        <Link to="/" >
-          <img
-            src=""
-            className=""
-            alt="App Logo"
-            onError={(e) => {
-              e.target.onerror = null;
-              e.target.src = "https://placehold.co/32x32/cccccc/ffffff?text=Logo";
-            }}
+  <nav className="w-full bg-yellow-400 shadow-md fixed top-0 left-0 z-50 ">
+      <div className="flex items-center justify-between px-4 py-3">
+        <div className="flex items-center gap-2">
+          <Link to="/" className="flex items-center">
+            <img
+              src="https://placehold.co/40x40/062147/ffffff?text=M"
+              alt="Mobi Logo"
+              className="w-10 h-10 rounded-full"
+            />
+            <div className="ml-2">
+              <h1 className="font-extrabold text-sm text-blue-900 leading-tight">
+                MOBI <br /> <span className="text-xs">EXPRESS</span>
+              </h1>
+            </div>
+          </Link>
+          <FaTh className="text-black ml-2 text-lg" />
+        </div>
+        <div className="flex-grow mx-6">
+          <input
+            type="text"
+            placeholder="Buscar productos..."
+            className="w-full rounded-full px-4 py-2 bg-gray-200 text-sm focus:outline-none"
           />
-          <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
-            Resort
-          </span>
-        </Link>
-        <button
-          onClick={() => setIsOpen(!isOpen)}
-          type="button"
-          className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
-          aria-controls="navbar-default"
-          aria-expanded={isOpen}
-        >
-          <span className="sr-only">Abrir menú principal</span>
-          <svg className="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
-            <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M1 1h15M1 7h15M1 13h15"/>
-          </svg>
-        </button>
+        </div>
 
-        <div
-          className={`${isOpen ? 'block' : 'hidden'} w-full md:block md:w-auto`}
-          id="navbar-default"
-        >
-          <ul className="font-medium flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
-            <li>
-              <Link
-                to="/"
-                className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
-                onClick={() => setIsOpen(false)}
-              >
-                Inicio
-              </Link>
-            </li>
-          </ul>
+        {/* Icons */}
+        <div className="flex items-center gap-4">
+          <FaUserCircle className="text-black text-xl cursor-pointer" />
+          <FaShoppingCart className="text-black text-xl cursor-pointer" />
+        </div>
+      </div>
+
+      {/* Bottom nav (like Empleados | Productos | Logout | Administración) */}
+      <div className="border-t border-yellow-300 text-sm text-black px-6 py-1 flex justify-between items-center">
+        <div className="flex gap-6">
+          <Link to="/empleados" className="hover:underline">Empleados</Link>
+          <Link to="/productos" className="hover:underline">Productos</Link>
+        </div>
+        <div className="flex gap-2 items-center">
+          {isLogged && (
+            <>
+              <button className="hover:underline">Logout</button>
+              <span className="text-xs">▼</span>
+              <span className="hover:underline">Administración</span>
+            </>
+          )}
         </div>
       </div>
     </nav>

@@ -60,7 +60,7 @@ export const UpdatePage = () => {
     }
     return (
         <>
-            <form onSubmit={handleSubmit} encType="multipart/form-data">
+            <form onSubmit={handleSubmit} encType="multipart/form-data mt-30">
             <div>
                 <label>Nombre:</label>
                 <input

@@ -17,7 +17,7 @@ export const ChangeProfilePicture = () => {
   }
 
   return (
-    <div>
+    <div className="mt-30">
       <h2>Cambiar foto de perfil</h2>
       <form onSubmit={handleSubmit}>
         <input

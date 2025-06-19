@@ -19,7 +19,7 @@ import { ChangeProfilePicture } from "./components/User/ChangeProfilePicture";
 import { ProductsPage } from "./pages/ProductsPage";
 import { Products } from "./components/Products/Products";
 import { HomePage } from "./pages/HomePage";
-import {getByCategorie} from './components/Products/getByCategorie'
+import {GetByCategorie} from './components/Products/GetByCategorie'
 
 import { OrderCard } from "./components/Order/OrderCard";
 import { UserOrderCard } from "./components/Order/UserOrderCard";
@@ -54,8 +54,8 @@ export const routes = [
                 element: <CategoryForm />
             },
             {
-                path:'/dashboard/searchByCategory/:id',
-                element:<getByCategorie/> 
+                path:'searchByCategory/:id',
+                element:<GetByCategorie/> 
             },
             {
                 path: 'profile',

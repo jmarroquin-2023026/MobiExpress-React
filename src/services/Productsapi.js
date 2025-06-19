@@ -51,7 +51,7 @@ export const addCategoryRequest=async(products)=>{
 
 export const getByCategoryRequest=async(id,products)=>{
     try{
-        const response=await apiClient.put(`/getByCategory/${id}`,products)
+        const response=await apiClient.get(`/getByCategory/${id}`,products)
         return response
     }catch(e){
         return{
@@ -95,4 +95,9 @@ export const deleteProductRequest=async(id)=>{
             e
         }
     }
+}
+
+// Productsapi.js
+export const getLimitedProductsRequest = async (limit = 10) => {
+  return await apiClient.get(`/getProduct?limit=${limit}`)
 }
