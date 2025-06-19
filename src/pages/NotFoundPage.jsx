@@ -1,9 +1,10 @@
 import React from 'react'
+import { Categories } from '../components/Categories/Categories'
 
 const NotFoundPage = () => {
   return (
     <div>
-      Not Found
+      <Categories/>
     </div>
   )
 }

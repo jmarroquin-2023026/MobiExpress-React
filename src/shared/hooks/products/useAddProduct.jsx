@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
-import { addCategoryRequest } from '../../../services/Categoryapi'
 import toast from 'react-hot-toast'
+import { addProductRequest } from '../../../services/Productsapi'
 
 export const useAddProduct = () => {
     const[isLoading,setIsLoading]=useState(false)
@@ -8,7 +8,7 @@ export const useAddProduct = () => {
 
     const addProduct=async(category)=>{
         setIsLoading(true)
-        const response=await addCategoryRequest(category)
+        const response=await addProductRequest(category)
         setIsLoading(false)
 
         if(response.error){
