@@ -43,12 +43,12 @@ export const ChangeProfilePicture = () => {
           htmlFor="upload"
           className="bg-blue-400 text-white px-4 py-1.5 rounded hover:bg-blue-500 cursor-pointer"
         >
-          Change
+          Seleccionar imagen
         </label>
 
         <button
           type="submit"
-          className="hidden"
+          className="bg-blue-400 text-white px-4 py-1.5 rounded hover:bg-blue-500 cursor-pointer"
         >
           Cambiar Foto
         </button>

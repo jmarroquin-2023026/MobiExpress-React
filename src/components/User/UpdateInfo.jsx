@@ -1,34 +1,18 @@
-import React, { useState, useEffect } from 'react'
+import { Link } from 'react-router-dom'
 import { useUser } from '../../shared/hooks/user/useUser'
 import { DeleteProfile } from './DeleteProfile'
+import React, { useState, useEffect } from 'react'
 
 export const UpdatePage = () => {
   const [initialData, setInitialData] = useState(null)
   const { getUser, updateUser, userData } = useUser()
 
   useEffect(() => {
-    const loadUserData = async () => {
-      try {
-        const user = JSON.parse(localStorage.getItem('user'))
-        await getUser(user.uid)
-      } catch (error) {
-        console.error('Error al cargar datos del usuario:', error)
-      }
+    // Asumiendo que getUser obtiene los datos del usuario
+    if (userData) {
+      setInitialData(userData) // Establecer datos iniciales
     }
-    loadUserData()
-    setInitialData(userData)
-  }, [])
-
-  useEffect(() => {
-    setFormData({
-      name: userData?.name || '',
-      surname: userData?.surname || '',
-      email: userData?.email || '',
-      username: userData?.username || '',
-      phone: userData?.phone || '',
-      address: userData?.address || ''
-    })
-  }, [userData])
+  }, [userData]) // Actualiza los datos cuando userData cambia
 
   const [formData, setFormData] = useState({
     name: '',
@@ -39,9 +23,23 @@ export const UpdatePage = () => {
     address: ''
   })
 
+  useEffect(() => {
+    // Asignar los datos del usuario al formulario cuando 'userData' cambie
+    if (userData) {
+      setFormData({
+        name: userData?.name || '',
+        surname: userData?.surname || '',
+        email: userData?.email || '',
+        username: userData?.username || '',
+        phone: userData?.phone || '',
+        address: userData?.address || ''
+      })
+    }
+  }, [userData])
+
   const handleChange = (e) => {
     const { name, value } = e.target
-    setFormData(prev => ({ ...prev, [name]: value }))
+    setFormData((prev) => ({ ...prev, [name]: value }))
   }
 
   const handleSubmit = (e) => {
@@ -118,19 +116,40 @@ export const UpdatePage = () => {
           />
         </div>
 
-            <div>
-                <label>Dirección:</label>
-                <input
-                type="text"
-                name="address"
-                value={formData.address}
-                onChange={handleChange}
-                />
-            </div>
+        <div className="flex flex-wrap gap-4 justify-center pt-4">
+          <button
+            type="submit"
+            className="bg-sky-400 hover:bg-sky-500 text-white px-4 py-2 rounded"
+          >
+            Update
+          </button>
+          <DeleteProfile className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded" />
 
-            <button type="submit">Actualizar Usuario</button>
-            </form>
-            <DeleteProfile/>
+          <Link to="/dashboard/profile/updatePassword">
+            <button
+              type="button"
+              className="bg-yellow-300 hover:bg-yellow-400 text-black px-4 py-2 rounded"
+            >
+              Change password
+            </button>
+          </Link>
+          <Link to="/dashboard/profile/changeProfilePicture">
+            <button
+              type="button"
+              className="bg-blue-400 hover:bg-blue-600 text-black px-4 py-2 rounded"
+            >
+              Change password
+            </button>
+          </Link>
+
+          <button
+            type="button"
+            className="bg-green-400 hover:bg-green-500 text-white px-4 py-2 rounded"
+          >
+            Historial
+          </button>
         </div>
-    );
-};
+      </form>
+    </div>
+  )
+}
