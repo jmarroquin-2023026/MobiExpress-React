@@ -149,41 +149,15 @@ export const Register = ({ switchAuthHandler }) => {
 
     return (
         <div className="min-h-screen flex flex-col md:flex-row bg-gray-100">
-            {/* Left column - form */}
+
             <div className="w-full md:w-1/2 flex items-center justify-center bg-white">
-                <div className="max-w-md w-full px-6 py-12 shadow-md rounded-md bg-white">
+                <div className="max-w-md w-full px-6 py-12 rounded-md ">
                     <div className="text-center mb-6">
                         <img src="/logo.png" alt="Logo" className="h-12 mx-auto mb-2" />
                         <h2 className="text-2xl font-bold text-gray-700 mb-4">Registro</h2>
                     </div>
 
-                    <form onSubmit={handleSubmit} className="space-y-4">
-                        <div>
-                            <label className="block mb-1 font-medium text-gray-700">Name</label>
-                            <Input
-                                field='name'
-                                value={formData.name.value}
-                                onChangeHandler={handleValueChange}
-                                placeholder={formData.name.value}
-                                type='text'
-                                onBlurHandler={handleValidationOnBlur}
-                                showErrorMessage={formData.name.showError}
-                                validationMessage={nameValidationMessage}
-                            />
-                        </div>
-                        <div>
-                            <label className="block mb-1 font-medium text-gray-700">Surname</label>
-                            <Input
-                                field='surname'
-                                value={formData.surname.value}
-                                onChangeHandler={handleValueChange}
-                                placeholder={formData.surname.value}
-                                type='text'
-                                onBlurHandler={handleValidationOnBlur}
-                                showErrorMessage={formData.surname.showError}
-                                validationMessage={surnameValidationMessage}
-                            />
-                        </div>
+                    <form onSubmit={handleSubmit} className="space-y-4 flex flex-col">
                         <div>
                             <label className="block mb-1 font-medium text-gray-700">Email</label>
                             <Input 
@@ -195,11 +169,43 @@ export const Register = ({ switchAuthHandler }) => {
                                 onBlurHandler={handleValidationOnBlur}
                                 showErrorMessage={formData.email.showError}
                                 validationMessage={emailValidationMessage}
+                                
                             />
                         </div>
-                        <div>
-                            <label className="block mb-1 font-medium text-gray-700">Username</label>
-                            <Input 
+                        <div className="flex gap-4 mb-4">
+                            <div className='flex flex-col'>
+                                <label className="block mb-1 font-medium text-gray-700 ">Name</label>
+                            <input
+                                field='name'
+                                value={formData.name.value}
+                                onChangeHandler={handleValueChange}
+                                placeholder={formData.name.value}
+                                type='text'
+                                onBlurHandler={handleValidationOnBlur}
+                                showErrorMessage={formData.name.showError}
+                                validationMessage={nameValidationMessage}
+                                className="flex-1 p-2 box-border border border-gray-300 rounded"
+                            />
+                            </div>
+                            <div className='flex flex-col'>
+                              <label className="block mb-1 font-medium text-gray-700">Surname</label>
+                            <input
+                                field='surname'
+                                value={formData.surname.value}
+                                onChangeHandler={handleValueChange}
+                                placeholder={formData.surname.value}
+                                type='text'
+                                onBlurHandler={handleValidationOnBlur}
+                                showErrorMessage={formData.surname.showError}
+                                validationMessage={surnameValidationMessage}
+                                className="flex-1 p-2 box-border border border-gray-300 rounded"
+                            />   
+                            </div>
+                        </div>
+                        <div className="flex gap-2 mb-2">
+                            <div className='flex flex-col'>
+                               <label className="block mb-1 font-medium text-gray-700">Username</label>
+                            <input 
                                 field='username'
                                 onChangeHandler={handleValueChange}
                                 value={formData.username.value} 
@@ -208,11 +214,12 @@ export const Register = ({ switchAuthHandler }) => {
                                 onBlurHandler={handleValidationOnBlur}
                                 showErrorMessage={formData.username.showError}
                                 validationMessage={usernameValidationMessage}
-                            />
-                        </div>
-                        <div>
-                            <label className="block mb-1 font-medium text-gray-700">Phone</label>
-                            <Input 
+                                className="flex-1 p-2 box-border border border-gray-300 rounded"
+                            /> 
+                            </div>
+                            <div className='flex flex-col'>
+                               <label className="block mb-1 font-medium text-gray-700">Phone</label>
+                            <input 
                                 field='phone'
                                 onChangeHandler={handleValueChange}
                                 value={formData.phone.value} 
@@ -220,7 +227,10 @@ export const Register = ({ switchAuthHandler }) => {
                                 onBlurHandler={handleValidationOnBlur}
                                 showErrorMessage={formData.phone.showError}
                                 validationMessage={phoneValidationMessage}
-                            />
+                                className="flex-1 p-2 box-border border border-gray-300 rounded"
+                            /> 
+                            </div>
+                            
                         </div>
                         <div>
                             <label className="block mb-1 font-medium text-gray-700">Address</label>
