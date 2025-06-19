@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react"
 import { useUser } from "../../shared/hooks/user/useUser"
 import { UserCard } from "./UserCard"
+import Navbar from "../NavBar/NavBar"
 
 export const Users = () => {
   const { getUsers, users, setUsers } = useUser()

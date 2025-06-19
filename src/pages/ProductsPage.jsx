@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import { useProducts } from '../shared/hooks/products/useProducts'
 import { useLocation, Outlet } from 'react-router-dom'
+import Navbar from '../components/NavBar/NavBar'
 
 export const ProductsPage = () => {
   const { getProducts, allProducts } = useProducts()
@@ -14,7 +15,9 @@ export const ProductsPage = () => {
 
   return (
     <div>
+      <Navbar/>
       <Outlet context={{ products: allProducts, getProducts }} />
+      
     </div>
   )
 }

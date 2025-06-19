@@ -22,7 +22,7 @@ const Navbar = () => {
               </h1>
             </div>
           </Link>
-          <FaTh className="text-black ml-2 text-lg" />
+          <Link to="/dashboard/categories"><FaTh className="text-black ml-2 text-lg" /></Link>
         </div>
         <div className="flex-grow mx-6">
           <input
@@ -34,23 +34,24 @@ const Navbar = () => {
 
         {/* Icons */}
         <div className="flex items-center gap-4">
-          <FaUserCircle className="text-black text-xl cursor-pointer" />
-          <FaShoppingCart className="text-black text-xl cursor-pointer" />
+          <Link to="/dashboard/profile/updateProfile"><FaUserCircle className="text-black text-xl cursor-pointer"/></Link>
+          <Link><FaShoppingCart className="text-black text-xl cursor-pointer"/></Link>
         </div>
       </div>
 
       {/* Bottom nav (like Empleados | Productos | Logout | Administración) */}
       <div className="border-t border-yellow-300 text-sm text-black px-6 py-1 flex justify-between items-center">
         <div className="flex gap-6">
-          <Link to="/empleados" className="hover:underline">Empleados</Link>
-          <Link to="/productos" className="hover:underline">Productos</Link>
+          <Link to="/users/getUsers" className="hover:underline">Empleados</Link>
+          <Link to="/products/list" className="hover:underline">Productos</Link>
         </div>
         <div className="flex gap-2 items-center">
           {isLogged && (
             <>
+              <Link to="/">
               <button className="hover:underline">Logout</button>
               <span className="text-xs">▼</span>
-              <span className="hover:underline">Administración</span>
+              </Link>
             </>
           )}
         </div>
