@@ -13,6 +13,7 @@ import { addressValidationMessage, emailValidationMessage, nameValidationMessage
     validateSurname,
     validateUsername} from '../../shared/validators/validators'
 import { useRegister } from '../../shared/hooks/auth/useRegister'
+import { useUser } from '../../shared/hooks/user/useUser'
 
 export const Register = ({ switchAuthHandler }) => {
     const form = {
@@ -62,7 +63,7 @@ export const Register = ({ switchAuthHandler }) => {
             showError: false
         }
     }
-
+    const {emailExist,emailMessage,usernameExist,usernameMessage}=useUser()
     const [formData, setFormData] = useState(form)
     const { register } = useRegister()
     const isSubmitButtonDisable = !formData.email.isValid ||
@@ -103,9 +104,11 @@ export const Register = ({ switchAuthHandler }) => {
                 break;
             case 'email':
                 isValid=validateEmail(value)
+                emailExist(value)
                 break;
             case 'username':
                 isValid = validateUsername(value)
+                usernameExist(value)
                 break
             case 'password':
                 isValid = validatePassword(value)
@@ -172,10 +175,11 @@ export const Register = ({ switchAuthHandler }) => {
                                 
                             />
                         </div>
+                        <span>{emailMessage}</span>
                         <div className="flex gap-4 mb-4">
                             <div className='flex flex-col'>
                                 <label className="block mb-1 font-medium text-gray-700 ">Name</label>
-                            <input
+                            <Input
                                 field='name'
                                 value={formData.name.value}
                                 onChangeHandler={handleValueChange}
@@ -189,7 +193,7 @@ export const Register = ({ switchAuthHandler }) => {
                             </div>
                             <div className='flex flex-col'>
                               <label className="block mb-1 font-medium text-gray-700">Surname</label>
-                            <input
+                            <Input
                                 field='surname'
                                 value={formData.surname.value}
                                 onChangeHandler={handleValueChange}
@@ -205,7 +209,7 @@ export const Register = ({ switchAuthHandler }) => {
                         <div className="flex gap-2 mb-2">
                             <div className='flex flex-col'>
                                <label className="block mb-1 font-medium text-gray-700">Username</label>
-                            <input 
+                            <Input 
                                 field='username'
                                 onChangeHandler={handleValueChange}
                                 value={formData.username.value} 
@@ -215,11 +219,12 @@ export const Register = ({ switchAuthHandler }) => {
                                 showErrorMessage={formData.username.showError}
                                 validationMessage={usernameValidationMessage}
                                 className="flex-1 p-2 box-border border border-gray-300 rounded"
-                            /> 
+                            />
+                            <span>{usernameMessage}</span>
                             </div>
                             <div className='flex flex-col'>
                                <label className="block mb-1 font-medium text-gray-700">Phone</label>
-                            <input 
+                            <Input 
                                 field='phone'
                                 onChangeHandler={handleValueChange}
                                 value={formData.phone.value} 
