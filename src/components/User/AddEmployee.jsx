@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useUser } from "../../shared/hooks/user/useUser";
-
+import { validateEmail,} from '../../shared/validators/validators'
 export const AddEmployee = () => {
   const [formData, setFormData] = useState({
     name: "",
@@ -10,9 +10,11 @@ export const AddEmployee = () => {
     password: "",
     phone: "",
     address: "",
-    profilePicture: null // Será un File
+    profilePicture: null 
   });
-  const {addEmployee}=useUser()
+  const [emailError, setEmailError]= useState('')
+  
+  const {addEmployee, emailExist,emailMessage,usernameExist,usernameMessage}=useUser()
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData(prev => ({
@@ -37,6 +39,20 @@ export const AddEmployee = () => {
     }
     addEmployee(data)
   };
+
+  const handleOnBlurEmail =(e)=>{
+    emailExist(e.target.value)
+    if(validateEmail(e.target.value) === false){
+      setEmailError('Ingrese una direccion de corre valida')
+    }else{
+      setEmailError('')
+    }
+  }
+
+  const handleUsernameBlur =(e)=>{
+        usernameExist(e.target.value)
+    }
+
 
   return (
     <form onSubmit={handleSubmit} encType="multipart/form-data">
@@ -74,9 +90,11 @@ export const AddEmployee = () => {
           value={formData.email}
           onChange={handleChange}
           required
+          onBlur={handleOnBlurEmail}
         />
       </label>
-
+      <span>{emailError}</span>
+      <span>{emailMessage}</span>
       <label>
         Username:
         <input
@@ -87,9 +105,10 @@ export const AddEmployee = () => {
           required
           minLength={5}
           maxLength={15}
+          onBlur={handleUsernameBlur}
         />
       </label>
-
+        <span>{usernameMessage}</span>
       <label>
         Password:
         <input
@@ -112,6 +131,7 @@ export const AddEmployee = () => {
           required
           minLength={8}
           maxLength={13}
+          placeholder="+502 12345678"
         />
       </label>
 
@@ -134,6 +154,7 @@ export const AddEmployee = () => {
           name="profilePicture"
           accept="image/jpeg, image/png, image/jpg"
           onChange={handleFileChange}
+          required
         />
       </label>
 

@@ -3,7 +3,10 @@ import { useUser } from '../../shared/hooks/user/useUser';
 import { DeleteProfile } from './DeleteProfile';
 export const UpdatePage = () => {
     const [initialData,setInitialData]=useState(null)
-    const {getUser,updateUser,userData}=useUser()
+    const {getUser,updateUser,userData,usernameExist,usernameMessage
+        ,emailMessage,emailExist
+        }=useUser()
+    
     useEffect(() => {
         const loadUserData = async () => {
             try {
@@ -22,8 +25,6 @@ export const UpdatePage = () => {
         setFormData({
             name: userData?.name || '',
             surname: userData?.surname || '',
-            email: userData?.email || '',
-            username: userData?.username || '',
             phone: userData?.phone || '',
             address: userData?.address || ''
         })
@@ -50,9 +51,16 @@ export const UpdatePage = () => {
         updateUser(id,formData)
     };
 
+    const handleUsernameBlur =(e)=>{
+        usernameExist(e.target.value)
+    }
+
+    const handleEmailOnBlur =(e)=>{
+        emailExist(e.target.value)
+    }
     return (
         <>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit} encType="multipart/form-data">
             <div>
                 <label>Nombre:</label>
                 <input
@@ -60,7 +68,9 @@ export const UpdatePage = () => {
                 name="name"
                 value={formData.name}
                 onChange={handleChange}
-                required
+                
+                minLength={3}
+                maxLength={30}
                 />
             </div>
 
@@ -71,7 +81,9 @@ export const UpdatePage = () => {
                 name="surname"
                 value={formData.surname}
                 onChange={handleChange}
-                required
+                
+                minLength={3}
+                maxLength={30}
                 />
             </div>
 
@@ -80,44 +92,55 @@ export const UpdatePage = () => {
                 <input
                 type="email"
                 name="email"
-                value={formData.email}
+                placeholder={formData.email}
                 onChange={handleChange}
+                onBlur={handleEmailOnBlur}
                 />
             </div>
-
+            <span>{emailMessage}</span>
             <div>
                 <label>Nombre de usuario:</label>
                 <input
                 type="text"
                 name="username"
-                value={formData.username}
+                placeholder={formData.username}
                 onChange={handleChange}
+                onBlur={handleUsernameBlur}
+                minLength={5}
+                maxLength={15}
                 />
             </div>
-
+            <span>{usernameMessage}</span>
             <div>
                 <label>Teléfono:</label>
                 <input
-                type="tel"
+                type="text"
                 name="phone"
                 value={formData.phone}
                 onChange={handleChange}
+                required
+                minLength={8}
+                maxLength={13}
+                placeholder="+502 12345678"
                 />
             </div>
 
             <div>
                 <label>Dirección:</label>
-                <input
-                type="text"
+                <textarea
                 name="address"
                 value={formData.address}
                 onChange={handleChange}
+                
+                minLength={20}
+                maxLength={200}
                 />
-            </div>
+            </div> 
 
             <button type="submit">Actualizar Usuario</button>
             </form>
-            <DeleteProfile/>
+            <DeleteProfile />
         </>
-    );
+);
+
 };
