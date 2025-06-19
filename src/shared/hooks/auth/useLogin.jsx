@@ -18,6 +18,7 @@ export const useLogin=()=>{
         const response=await loginRequest(user)
         setIsLoading
         
+        
         if(response.error){
             return toast.error(
                 response?.e?.response?.data?.message||
@@ -25,6 +26,8 @@ export const useLogin=()=>{
             )
         }
         localStorage.setItem('user',JSON.stringify(response?.data?.loggedUser))
+        localStorage.setItem('token', response?.data?.token);
+
         navigate('/dashboard/categories')
     }
     return{

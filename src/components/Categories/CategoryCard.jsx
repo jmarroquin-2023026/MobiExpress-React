@@ -5,17 +5,22 @@ import { useDeleteCategory } from "../../shared/hooks/categories/useDeleteCatego
 
 export const CategoryCard = ({ name, id, picture, navigateToCategoryHandler }) => {
   const navigate=useNavigate()
+
   const {deleteCategory,isLoading}=useDeleteCategory()
 
   const handleNavigateToCategory = () => {
     navigateToCategoryHandler(id)
 }
 
+  const searchByCategory = (id) => {
+    navigate(`/dashboard/searchByCategory/${id}`)
+  }
+
   const handleEditButton=(id)=>{
     navigate(`/dashboard/updateCategory/${id}`)
   }
 
-  const handleDeleteButton = async () => {
+   const handleDeleteButton = async () => {
     const confirmed = window.confirm('¿Estás seguro de que deseas eliminar esta categoria?')
     if (!confirmed) return
 
@@ -27,56 +32,27 @@ export const CategoryCard = ({ name, id, picture, navigateToCategoryHandler }) =
     }
 }
 
-  const isAdmin = JSON.parse(localStorage.getItem("user")).role === "ADMIN";
+  const isAdmin = JSON.parse(localStorage.getItem("user")).role === "ADMIN"
 
   return (
-    <div
-      /* style={{
-        display: "flex",
-        alignItems: "center",
-        justifyContent: isAdmin ? "flex-start" : "center",
-        padding: "1rem",
-        border: "1px solid #ddd",
-        borderRadius: "8px",
-        marginBottom: "1rem",
-        cursor: !isAdmin ? "pointer" : "default",
-        gap: "1rem",
-        width: isAdmin ? "100%" : "150px",
-      }} */
-     onClick={handleNavigateToCategory}
+     <div
+      className={`flex flex-col items-center text-center cursor-pointer p-4 transition-transform hover:scale-105 ${isAdmin ? 'md:flex-row md:items-start md:text-left md:cursor-default md:hover:scale-100' : ''}`}
+      onClick={handleNavigateToCategory}
     >
-      {/* Imagen redonda visible para ambos */}
-      <div
-        /* style={{
-          width: "80px",
-          height: "80px",
-          borderRadius: "50%",
-          overflow: "hidden",
-          border: "2px solid #000",
-          flexShrink: 0,
-        }} */
-      >
+      {/* Imagen circular */}
+      <div className="w-32 h-32 rounded-full border-2 border-black overflow-hidden flex items-center justify-center mb-2 md:mb-0 md:mr-4">
         <img
           src={`http://localhost:2636/uploads/img/categories/${picture}`}
           alt={name}
-          /* style={{ width: "100%", height: "100%", objectFit: "cover" }} */
+          className="w-full h-full object-cover"
         />
       </div>
 
-      {/* Contenido condicional */}
+      {/* Contenido */}
       {isAdmin ? (
-        <div /* style={{ flex: 1 }} */>
-          <div
-
-            /* style={{
-              padding: "0.5rem",
-              borderRadius: "4px",
-              border: "1px solid #ccc",
-              width: "100%",
-              marginBottom: "0.5rem",
-            }} */
-          >{name}</div>
-          <div /* style={{ display: "flex", gap: "0.5rem" }} */>
+        <div className="flex flex-col gap-2 w-full">
+          <div className="border border-gray-300 rounded p-2">{name}</div>
+          <div className="flex gap-2">
             <button
              /*  style={{
                 backgroundColor: "#f44336",
@@ -85,15 +61,33 @@ export const CategoryCard = ({ name, id, picture, navigateToCategoryHandler }) =
                 padding: "0.5rem 1rem",
                 borderRadius: "4px",
               }} */
-                onClick={(e) => {
-                  e.stopPropagation()
-                  handleDeleteButton()
+              className="bg-red-500 text-white px-4 py-2 rounded"
+              onClick={(e) => {
+                e.stopPropagation()
+                handleDeleteButton()
               }}
               disabled={isLoading}
   
             >
               {isLoading ? 'Eliminando...' : 'Eliminar'}
-
+            </button>
+            <button
+             /*  style={{
+                backgroundColor: "#f44336",
+                color: "#fff",
+                border: "none",
+                padding: "0.5rem 1rem",
+                borderRadius: "4px",
+              }} */
+              className="bg-red-500 text-white px-4 py-2 rounded"
+              onClick={(e) => {
+                e.stopPropagation()
+                searchByCategory(id)
+              }}
+              disabled={isLoading}
+  
+            >
+              details
             </button>
             <button
               /* style={{
@@ -116,11 +110,11 @@ export const CategoryCard = ({ name, id, picture, navigateToCategoryHandler }) =
         <span /* style={{ marginTop: "0.5rem", textAlign: "center" }} */>{name}</span>
       )}
     </div>
-  );
-};
+  )
+}
 
 CategoryCard.propTypes = {
   name: PropTypes.string.isRequired,
   picture: PropTypes.string.isRequired,
   navigateToCategoryHandler: PropTypes.func.isRequired,
-};
+}

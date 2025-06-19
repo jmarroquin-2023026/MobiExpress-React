@@ -5,8 +5,21 @@ import { CategoriesPage } from "./pages/CategoriesPage";
 import NotFoundPage from "./pages/NotFoundPage";
 import { Categories } from "./components/Categories/Categories";
 import { CategoryForm } from "./components/Categories/CategoryForm";
+import { CardForm } from "./components/Card/CardForm";
+import { SavedCards } from "./components/Card/SavedCards";
 
-
+import { UpdatePage } from "./components/User/UpdateInfo";
+import { ChangePasswordPage } from "./components/User/ChangePassword";
+import { Users } from "./components/User/Users";
+import { element } from "prop-types";
+import { AddEmployee } from "./components/User/AddEmployee";
+import { UsersConfPage } from "./pages/userPages/UsersConfPage";
+import { ProfileConfPage } from "./pages/userPages/ProfileConfPage";
+import { ChangeProfilePicture } from "./components/User/ChangeProfilePicture";
+import { ProductsPage } from "./pages/ProductsPage";
+import { Products } from "./components/Products/Products";
+import { HomePage } from "./pages/HomePage";
+import {getByCategorie} from './components/Products/getByCategorie'
 export const routes=[
     {
         path:'/auth',
@@ -15,6 +28,10 @@ export const routes=[
     {
         path:'/',
         element:<AuthPage/>
+    },
+    {
+        path:'/HomePage',
+        element:<HomePage/>
     },
     {
         path:'/dashboard',
@@ -31,7 +48,58 @@ export const routes=[
             {
                 path:'updateCategory/:id',
                 element:<CategoryForm/>
+            },
+            {
+                path:'/dashboard/searchByCategory/:id',
+                element:<getByCategorie/> 
+            },
+            {
+                path:'profile',
+                element:<ProfileConfPage/>,
+                children:[
+                    {
+                        path:'updateProfile',
+                        element:<UpdatePage/>
+                    },
+                    {
+                        path:'updatePassword',
+                        element:<ChangePasswordPage/>
+                    },
+                    {
+                        path:'changeProfilePicture',
+                        element:<ChangeProfilePicture/>
+                    },
+                    
+                ]
             }
+        ]
+    },
+    {
+        path:'/users',
+        element:<UsersConfPage/>,
+        children:[
+            {
+                path:'getUsers',
+                element:<Users/>
+            },
+            {
+                path:'addEmployee',
+                element:<AddEmployee/>
+            }
+        ]
+    },
+    {
+        path:'/card',
+        element:<SavedCards/>
+    },
+    {
+        path:'/products',
+        element:<ProductsPage/>,
+        children:[
+            {
+                path:'list',
+                element:<Products/>
+            },
         ]
     }
 ]

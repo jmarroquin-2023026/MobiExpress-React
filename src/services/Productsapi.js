@@ -19,7 +19,7 @@ apiClient.interceptors.request.use(
 
 export const getProductsRequest=async()=>{
     try{
-        return await apiClient.get('/addProduct')
+        return await apiClient.get('/getProduct')
     }catch(e){
         return {
             error:true,

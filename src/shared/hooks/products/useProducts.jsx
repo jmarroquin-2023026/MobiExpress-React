@@ -4,6 +4,7 @@ import toast from 'react-hot-toast'
 
 export const useProducts = () => {
     const [products,setProducts]=useState(null)
+
     const getProducts=async()=>{
         const productsData=await getProductsRequest()
          console.log('Respuesta de productos:', productsData)
@@ -15,7 +16,7 @@ export const useProducts = () => {
         }
         setProducts(
             {
-                categories: productsData.data.products
+                products: productsData.data.products
             }
         )
     }
