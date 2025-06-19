@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useUser } from "../../shared/hooks/user/useUser";
-import { validateEmail,} from '../../shared/validators/validators'
+import { validateEmail } from '../../shared/validators/validators';
+
 export const AddEmployee = () => {
   const [formData, setFormData] = useState({
     name: "",
@@ -10,14 +11,12 @@ export const AddEmployee = () => {
     password: "",
     phone: "",
     address: "",
-    profilePicture: null 
+    profilePicture: null // Será un File
   });
-  const [emailError, setEmailError]= useState('')
-  
-  const {addEmployee, emailExist,emailMessage,usernameExist,usernameMessage}=useUser()
+  const {addEmployee}=useUser()
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
       [name]: value
     }));
@@ -25,7 +24,7 @@ export const AddEmployee = () => {
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
       profilePicture: file
     }));
@@ -39,20 +38,6 @@ export const AddEmployee = () => {
     }
     addEmployee(data)
   };
-
-  const handleOnBlurEmail =(e)=>{
-    emailExist(e.target.value)
-    if(validateEmail(e.target.value) === false){
-      setEmailError('Ingrese una direccion de corre valida')
-    }else{
-      setEmailError('')
-    }
-  }
-
-  const handleUsernameBlur =(e)=>{
-        usernameExist(e.target.value)
-    }
-
 
   return (
     <form onSubmit={handleSubmit} encType="multipart/form-data">
@@ -69,18 +54,19 @@ export const AddEmployee = () => {
         />
       </label>
 
-      <label>
-        Surname:
-        <input
-          type="text"
-          name="surname"
-          value={formData.surname}
-          onChange={handleChange}
-          required
-          minLength={3}
-          maxLength={30}
-        />
-      </label>
+        <label className="text-sm text-gray-600">
+          Surname:
+          <input
+            type="text"
+            name="surname"
+            value={formData.surname}
+            onChange={handleChange}
+            required
+            minLength={3}
+            maxLength={30}
+            className="mt-1 w-full bg-gray-100 rounded px-3 py-2 outline-none"
+          />
+        </label>
 
       <label>
         Email:
@@ -90,11 +76,9 @@ export const AddEmployee = () => {
           value={formData.email}
           onChange={handleChange}
           required
-          onBlur={handleOnBlurEmail}
         />
       </label>
-      <span>{emailError}</span>
-      <span>{emailMessage}</span>
+
       <label>
         Username:
         <input
@@ -105,10 +89,9 @@ export const AddEmployee = () => {
           required
           minLength={5}
           maxLength={15}
-          onBlur={handleUsernameBlur}
         />
       </label>
-        <span>{usernameMessage}</span>
+
       <label>
         Password:
         <input
@@ -131,7 +114,6 @@ export const AddEmployee = () => {
           required
           minLength={8}
           maxLength={13}
-          placeholder="+502 12345678"
         />
       </label>
 
@@ -144,19 +126,19 @@ export const AddEmployee = () => {
           required
           minLength={20}
           maxLength={200}
+          className="mt-1 w-full bg-gray-100 rounded px-3 py-2 outline-none resize-none"
         />
       </label>
 
-      <label>
-        Profile Picture:
+      <div className="mt-4">
+        <label className="text-sm text-gray-600 block mb-2">Profile Picture:</label>
         <input
           type="file"
           name="profilePicture"
           accept="image/jpeg, image/png, image/jpg"
           onChange={handleFileChange}
-          required
         />
-      </label>
+      </div>
 
       <button type="submit">Guardar</button>
     </form>
