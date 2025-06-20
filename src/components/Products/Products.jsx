@@ -1,13 +1,27 @@
 import React from 'react'
-import { useOutletContext } from 'react-router-dom'
+import { useOutletContext, useNavigate } from 'react-router-dom'
 import { ProductCard } from './ProductCard'
 
 export const Products = () => {
   const { products } = useOutletContext()
+  const navigate = useNavigate()
+
+  const handleAddProduct = () => {
+    navigate('/products/form')
+  }
 
   return (
     <div className="p-4">
-      <h2 className="text-xl font-bold mb-4">Lista de Productos</h2>
+      <div className="flex justify-between items-center mb-4">
+        <h2 className="text-xl font-bold">Lista de Productos</h2>
+        <button
+          onClick={handleAddProduct}
+          className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md"
+        >
+          Agregar
+        </button>
+      </div>
+
       <div className="flex flex-wrap gap-4">
         {products.map((product) => (
           <ProductCard

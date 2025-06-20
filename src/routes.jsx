@@ -24,6 +24,7 @@ import {GetByCategorie} from './components/Products/GetByCategorie'
 import { OrderCard } from "./components/Order/OrderCard";
 import { UserOrderCard } from "./components/Order/UserOrderCard";
 import { ProductDetails } from "./components/Products/ProductDetails";
+import { ProductForm } from "./components/Products/ProductForm";
 
 export const routes = [
     {
@@ -117,7 +118,15 @@ export const routes = [
             {
                 path: 'details/:id',
                 element: <ProductDetails/>
-            }
+            },
+            {
+                path: 'form',
+                element: <ProductForm />
+            },
+            {
+                path: 'updateProduct/:id',
+                element: <ProductForm />
+            },
         ]
     },
     {
