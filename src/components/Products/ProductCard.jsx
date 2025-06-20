@@ -108,12 +108,21 @@ export const ProductCard = ({ id, name, description, category, price, brand, sto
             <span className="font-bold text-amber-500">Q{price}</span>
           </div>
           <div className="w-full flex">
+            
             {category && (
               <span className="inline-block text-gray-400 py-1 text-[10px] xs:text-xx sm:text-xs rounded-full whitespace-nowrap">
                 {category}
               </span>
+              
             )}
+            
           </div>
+          <button
+            className="bg-yellow-500 hover:bg-yellow-600 text-white py-1 px-4 rounded"
+            onClick={handleDetailsButton} // <-- sin pasar (id), solo referencia la función
+          >
+            Details 📖
+          </button>
         </div>
       </div>
     )

@@ -8,6 +8,7 @@ export const ProductDetails = () => {
   const navigate = useNavigate()
   const { product, isLoading, error } = useGetById(id)
   const [quantity, setQuantity] = useState(1)
+  const [mainImage, setMainImage] = useState(null)
 
   const renderStatusMessage = (message, color = 'text-gray-300') => (
     <div className="flex justify-center items-center min-h-screen bg-slate-900">
@@ -29,15 +30,12 @@ export const ProductDetails = () => {
 
   const handleAddToOrder = () => {
     if (!product) return
-
     const storedOrder = JSON.parse(localStorage.getItem('order')) || []
     const alreadyExists = storedOrder.find(p => p._id === product._id)
-
     if (alreadyExists) {
       toast.error('Este producto ya fue agregado al pedido')
       return
     }
-
     const productToAdd = {
       _id: product._id,
       name: product.name,
@@ -46,7 +44,6 @@ export const ProductDetails = () => {
       quantity,
       stock: product.stock,
     }
-
     localStorage.setItem('order', JSON.stringify([...storedOrder, productToAdd]))
     toast.success('Producto agregado al pedido')
   }
@@ -55,61 +52,58 @@ export const ProductDetails = () => {
   if (error) return renderStatusMessage('Error al cargar el producto', 'text-red-500')
   if (!product) return renderStatusMessage('No se encontró el producto')
 
+  const selectedImage = mainImage || (product.images?.[0] && `http://localhost:2636/uploads/img/products/${product.images[0]}`)
+
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gradient-to-br from-slate-900 to-slate-800 px-4 py-10">
-      <div className="bg-slate-700 rounded-3xl shadow-xl w-full max-w-5xl p-6 md:p-10 text-white space-y-10">
-
-        <h1 className="text-center text-4xl font-extrabold text-white">Detalles del Producto</h1>
-
-        <div>
-          <h2 className="text-2xl font-bold mb-3">Galería</h2>
-          <div className="flex gap-4 overflow-x-auto scrollbar-thin scrollbar-thumb-slate-600 scrollbar-track-slate-800">
-            {product.images && product.images.length > 0 ? (
-              product.images.map((image, index) => (
-                <img
-                  key={index}
-                  src={`http://localhost:2636/uploads/img/products/${image}`}
-                  alt={`Product image ${index}`}
-                  className="w-60 h-40 object-cover rounded-lg shadow"
-                />
-              ))
-            ) : (
-              <p className="text-gray-400">Sin imágenes disponibles</p>
-            )}
+    <div className="flex justify-center items-center min-h-screen bg-white px-4 0">
+      <div className="w-full max-w-6xl grid grid-cols-1 md:grid-cols-2 gap-10">
+        
+        {/* Imagen Principal y Carrusel */}
+        <div className="flex flex-col items-center">
+          {selectedImage ? (
+            <img
+              src={selectedImage}
+              alt="Imagen principal"
+              className="w-full max-w-md h-64 object-contain border rounded-lg shadow"
+            />
+          ) : (
+            <p className="text-gray-500">Sin imagen</p>
+          )}
+          <div className="mt-4 flex justify-center gap-3 overflow-x-auto max-w-md">
+            {product.images && product.images.map((img, index) => (
+              <img
+                key={index}
+                src={`http://localhost:2636/uploads/img/products/${img}`}
+                alt={`Miniatura ${index}`}
+                className={`w-16 h-16 object-contain border rounded cursor-pointer ${selectedImage === `http://localhost:2636/uploads/img/products/${img}` ? 'border-yellow-500' : 'border-gray-300'}`}
+                onClick={() => setMainImage(`http://localhost:2636/uploads/img/products/${img}`)}
+              />
+            ))}
           </div>
         </div>
 
-        <div className="border border-slate-500 rounded-xl p-6 bg-slate-800 max-w-4xl mx-auto space-y-4">
-          <h2 className="text-3xl font-bold text-center">{product.name}</h2>
+        {/* Detalles del Producto */}
+        <div className="flex flex-col justify-center space-y-4">
+          <h2 className="text-2xl font-bold text-gray-800">{product.name}</h2>
+          <p className="text-gray-600"><span className="font-semibold">Descripción:</span> {product.description}</p>
+          <p className="text-gray-600"><span className="font-semibold">Stock Disponible:</span> {product.stock}</p>
+          <div className="flex items-center gap-2">
+            <span className="text-lg font-bold text-yellow-600">Q{Number(product.price).toFixed(2)}</span>
+            <span className="text-sm bg-gray-200 text-gray-800 px-2 py-1 rounded">{product.category }</span>
+          </div>
 
-          <p className="text-slate-300 text-base">
-            <span className="font-semibold">Descripción:</span> {product.description}
-          </p>
-
-          <p className="text-slate-300 text-base">
-            <span className="font-semibold">Precio:</span> ${Number(product.price).toFixed(2)}
-          </p>
-
-          <p className="text-slate-300 text-base">
-            <span className="font-semibold">Stock disponible:</span> {product.stock}
-          </p>
-
-          <p className="text-slate-300 text-base">
-            <span className="font-semibold">Categoría:</span> {product.category?.name || 'Sin categoría'}
-          </p>
-
-          {/* Contador y botón */}
-          <div className="mt-6 flex items-center gap-4">
+          {/* Control de cantidad */}
+          <div className="flex items-center gap-3">
             <button
               onClick={decrease}
-              className="px-3 py-1 bg-gray-500 hover:bg-gray-600 rounded text-white"
+              className="w-8 h-8 rounded-full bg-yellow-500 text-white text-xl font-bold hover:bg-yellow-600"
             >
               -
             </button>
-            <span className="text-xl font-semibold">{quantity}</span>
+            <span className="text-xl">{quantity}</span>
             <button
               onClick={increase}
-              className="px-3 py-1 bg-gray-500 hover:bg-gray-600 rounded text-white"
+              className="w-8 h-8 rounded-full bg-yellow-500 text-white text-xl font-bold hover:bg-yellow-600"
             >
               +
             </button>
@@ -117,9 +111,9 @@ export const ProductDetails = () => {
 
           <button
             onClick={handleAddToOrder}
-            className="mt-6 w-full py-3 bg-blue-600 hover:bg-blue-700 rounded text-white font-bold text-lg"
+            className="mt-4 bg-yellow-500 hover:bg-yellow-600 text-white py-3 px-6 rounded font-semibold shadow"
           >
-            Agregar al pedido
+            Añadir al carrito
           </button>
         </div>
       </div>

@@ -73,13 +73,6 @@ export const Login = ({ switchAuthHandler }) => {
                             showErrorMessage={formData.password.showError}
                         />
 
-                        <div className="flex justify-between text-sm text-gray-600">
-                            <label className="flex items-center">
-                                <input type="checkbox" className="form-checkbox mr-2" />
-                                Recordar
-                            </label>
-                            <a href="#" className="text-blue-600 hover:underline">Olvidé mi contraseña</a>
-                        </div>
 
                         <button
                             type="submit"

@@ -71,25 +71,7 @@ export const CategoryCard = ({ name, id, picture, navigateToCategoryHandler }) =
             >
               {isLoading ? 'Eliminando...' : 'Eliminar'}
             </button>
-            <button
-             /*  style={{
-                backgroundColor: "#f44336",
-                color: "#fff",
-                border: "none",
-                padding: "0.5rem 1rem",
-                borderRadius: "4px",
-              }} */
-              className="bg-red-500 text-white px-4 py-2 rounded"
-              onClick={(e) => {
-                e.stopPropagation()
-                searchByCategory(id)
-              }}
-              disabled={isLoading}
-  
-            >
-              
-              Products
-            </button>
+            
             <button
               /* style={{
                 backgroundColor: "#03a9f4",
@@ -110,6 +92,25 @@ export const CategoryCard = ({ name, id, picture, navigateToCategoryHandler }) =
       ) : (
         <span /* style={{ marginTop: "0.5rem", textAlign: "center" }} */>{name}</span>
       )}
+      <button
+             /*  style={{
+                backgroundColor: "#f44336",
+                color: "#fff",
+                border: "none",
+                padding: "0.5rem 1rem",
+                borderRadius: "4px",
+              }} */
+              className="bg-red-500 text-white px-4 py-2 rounded"
+              onClick={(e) => {
+                e.stopPropagation()
+                searchByCategory(id)
+              }}
+              disabled={isLoading}
+  
+            >
+              
+              Products
+            </button>
     </div>
   )
 }
