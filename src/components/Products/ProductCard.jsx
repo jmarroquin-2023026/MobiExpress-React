@@ -31,7 +31,7 @@ export const ProductCard = ({ id, name, description, category, price, brand, sto
 
   const handleEditButton = (e) => {
     e.stopPropagation()
-    navigate(`/products/update/${id}`)
+    navigate(`/products/updateProduct/${id}`)
   }
 
   const handleDetailsButton = (e) => {

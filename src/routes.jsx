@@ -118,6 +118,10 @@ export const routes = [
                 path: 'form',
                 element: <ProductForm />
             },
+            {
+                path: 'updateProduct/:id',
+                element: <ProductForm />
+            },
         ]
     },
     {
