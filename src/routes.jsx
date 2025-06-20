@@ -23,6 +23,7 @@ import {GetByCategorie} from './components/Products/GetByCategorie'
 
 import { OrderCard } from "./components/Order/OrderCard";
 import { UserOrderCard } from "./components/Order/UserOrderCard";
+import { ProductForm } from "./components/Products/ProductForm";
 
 export const routes = [
     {
@@ -112,6 +113,10 @@ export const routes = [
             {
                 path: 'list',
                 element: <Products />
+            },
+            {
+                path: 'form',
+                element: <ProductForm />
             },
         ]
     },
