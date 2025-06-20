@@ -23,6 +23,7 @@ import {GetByCategorie} from './components/Products/GetByCategorie'
 
 import { OrderCard } from "./components/Order/OrderCard";
 import { UserOrderCard } from "./components/Order/UserOrderCard";
+import { ProductDetails } from "./components/Products/ProductDetails";
 
 export const routes = [
     {
@@ -113,6 +114,10 @@ export const routes = [
                 path: 'list',
                 element: <Products />
             },
+            {
+                path: 'details/:id',
+                element: <ProductDetails/>
+            }
         ]
     },
     {

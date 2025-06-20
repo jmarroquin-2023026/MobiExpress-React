@@ -1,10 +1,10 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
-import { useProductDetails } from '../../shared/hooks/Product/useProductDetails'
+import { useGetById } from '../../shared/hooks/products/useGetById'
 
 export const ProductDetails = () => {
   const { id } = useParams()
-  const { product, isLoading, error } = useProductDetails(id)
+  const { product, isLoading, error } = useGetById(id)
 
   const renderStatusMessage = (message, color = 'text-gray-300') => (
     <div className="flex justify-center items-center min-h-screen bg-slate-900">
@@ -18,21 +18,25 @@ export const ProductDetails = () => {
 
   return (
     <div className="flex justify-center items-center min-h-screen bg-gradient-to-br from-slate-900 to-slate-800 px-4 py-10">
-      <div className="bg-slate-700 rounded-3xl shadow-xl w-full max-w-5xl p-6 md:p-10 text-white space-y-8">
+      <div className="bg-slate-700 rounded-3xl shadow-xl w-full max-w-5xl p-6 md:p-10 text-white space-y-10">
 
         <h1 className="text-center text-4xl font-extrabold text-white">Detalles del Producto</h1>
 
         <div>
           <h2 className="text-2xl font-bold mb-3">Galería</h2>
           <div className="flex gap-4 overflow-x-auto scrollbar-thin scrollbar-thumb-slate-600 scrollbar-track-slate-800">
-            {product.photos.map((photo, index) => (
-              <img
-                key={index}
-                src={`http://localhost:2636/uploads/img/products/${photo}`}
-                alt={`Product image ${index}`}
-                className="w-60 h-40 object-cover rounded-lg shadow"
-              />
-            ))}
+            {product.images && product.images.length > 0 ? (
+              product.images.map((image, index) => (
+                <img
+                  key={index}
+                  src={`http://localhost:2636/uploads/img/products/${image}`}
+                  alt={`Product image ${index}`}
+                  className="w-60 h-40 object-cover rounded-lg shadow"
+                />
+              ))
+            ) : (
+              <p className="text-gray-400">Sin imágenes disponibles</p>
+            )}
           </div>
         </div>
 

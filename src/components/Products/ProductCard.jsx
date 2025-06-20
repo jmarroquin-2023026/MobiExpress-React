@@ -67,11 +67,12 @@ export const ProductCard = ({ id, name, description, category, price, brand, sto
 
         <div className="flex gap-2">
           <button
-            onClick={handleDetailsButton}
-            className="px-4 py-2 bg-green-500 hover:bg-green-600 text-white rounded"
+            className="bg-green-500 hover:bg-green-600 text-white py-1 px-4 rounded"
+            onClick={handleDetailsButton} // <-- sin pasar (id), solo referencia la función
           >
-            Detalles
+            Details 📖
           </button>
+
 
           <button
             onClick={handleEditButton}
