@@ -93,7 +93,7 @@ export const routes = [
         ]
     },
     {
-        path: '/card',
+     path: '/card',
        children:[
         {
             path:'myCards',
