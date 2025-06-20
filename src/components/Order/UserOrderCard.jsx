@@ -11,7 +11,12 @@ export const UserOrderCard = () => {
   }, [])
 
   if (userOrders.length === 0)
-    return <p className="text-center py-4">No hay pedidos registrados para este usuario.</p>
+    return(
+        <div>
+        <Navbar/>
+        <p className="text-center py-4 mt-36">No hay pedidos registrados para este usuario.</p>
+        </div>
+   )
 
   return (
     <div className="px-6 py-8">

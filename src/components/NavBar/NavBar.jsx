@@ -4,12 +4,12 @@ import { FaUserCircle, FaShoppingCart, FaTh } from 'react-icons/fa';
 
 const Navbar = ({ searchTerm, setSearchTerm }) => {
   const isLogged = true;
-
+  const isAdmin = JSON.parse(localStorage.getItem("user")).role === "ADMIN"
   return (
     <nav className="w-full bg-yellow-400 shadow-md fixed top-0 left-0 z-50 ">
       <div className="flex items-center justify-between px-4 py-3">
         <div className="flex items-center gap-2">
-          <Link to="/" className="flex items-center">
+          <Link to="/HomePage" className="flex items-center">
             <img
               src="https://placehold.co/40x40/062147/ffffff?text=M"
               alt="Mobi Logo"
@@ -50,12 +50,20 @@ const Navbar = ({ searchTerm, setSearchTerm }) => {
       {/* Menú inferior */}
       <div className="border-t border-yellow-300 text-sm text-black px-6 py-1 flex justify-between items-center">
         <div className="flex gap-6">
-          <Link to="/users/getUsers" className="hover:underline">
+          {isAdmin?(
+            <div className="flex gap-6">
+              <Link to="/users/getUsers" className="hover:underline">
             Empleados
           </Link>
           <Link to="/products/list" className="hover:underline">
             Productos
+          </Link></div>
+            
+          ):(
+            <Link to="/products/list" className="hover:underline">
+            Productos
           </Link>
+          )}
         </div>
         <div className="flex gap-2 items-center">
           {isLogged && (

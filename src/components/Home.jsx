@@ -39,15 +39,19 @@ export const Home = () => {
           alt="Elegant outdoor event setup"
           className="object-cover w-full h-full rounded-lg transform hover:scale-105 transition-transform duration-500"
         />
-        <div className="absolute inset-0 bg-black/40 rounded-lg" />
-        <div className="absolute inset-0 flex items-center justify-start pl-8 md:pl-16 text-white">
-          <h1 className="text-3xl md:text-6xl font-extrabold leading-tight drop-shadow-lg">
+        
+        <div className="absolute inset-0  items-center justify-start  text-white">
+          <div className="relative w-full h-full overflow-hidden">
+            <img src="/images/HomePage.jpg" alt="" className="absolute top-0 left-0 w-full h-full object-cover z-0" />
+            <h1 className="text-3xl md:text-6xl font-extrabold leading-tight drop-shadow-lg absolute inset-0 flex items-center justify-start pl-8 md:pl-16 text-white">
             Mobiliario
             <br />
             para tus
             <br />
             fiestas
           </h1>
+            </div>
+          
         </div>
       </div>
       <div className="container mx-auto px-4 py-8 max-w-7xl">
