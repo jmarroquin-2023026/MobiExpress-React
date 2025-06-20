@@ -6,10 +6,12 @@ export const Categories = () => {
     const {categories}=useOutletContext()
 
   return (
-    <div className='mt-30'>
-      <h1 className='text-4xl font-bold'>Categorias</h1>
-      {
-        categories.map((category)=>(
+    <div className='mt-30' >
+      <h1 className='text-center text-4xl font-bold'>Categorias</h1>
+      
+      <div className='mt-30 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6'>
+      
+        {categories.map((category)=>(
           <CategoryCard
             key={category._id}
             id={category._id}
@@ -19,6 +21,7 @@ export const Categories = () => {
           />
         ))
       }
+    </div>
     </div>
   )
 }

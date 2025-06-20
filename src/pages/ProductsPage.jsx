@@ -1,11 +1,17 @@
 import React, { useEffect } from 'react'
 import { useProducts } from '../shared/hooks/products/useProducts'
-import { useLocation, Outlet } from 'react-router-dom'
+import { useLocation, Outlet, useNavigate } from 'react-router-dom'
 import Navbar from '../components/NavBar/NavBar'
 
 export const ProductsPage = () => {
   const { getProducts, allProducts } = useProducts()
   const location = useLocation()
+  const navigate = useNavigate()
+
+  const handleAddProduct = () => {
+    navigate('/products/form')
+  }
+
 
   useEffect(() => {
     if (location.pathname === '/products/list') {
@@ -13,11 +19,26 @@ export const ProductsPage = () => {
     }
   }, [location])
 
+  const isAdmin = JSON.parse(localStorage.getItem("user"))?.role === "ADMIN"
   return (
-    <div className='mt-36'>
-      <Navbar/>
-      <Outlet context={{ products: allProducts, getProducts }} />
-      
-    </div>
+    isAdmin ? (
+      <div>
+        <Navbar />
+         <button
+          onClick={handleAddProduct}
+          className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md"
+        >
+          Agregar
+        </button>
+        <Outlet context={{ products: allProducts, getProducts }} />
+       
+      </div>
+    ) : (
+      <div>
+        <Navbar />
+        <Outlet context={{ products: allProducts, getProducts }} />
+      </div>
+    )
+
   )
 }
