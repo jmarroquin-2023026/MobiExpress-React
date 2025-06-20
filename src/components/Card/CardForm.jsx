@@ -146,7 +146,7 @@ console.log('Datos a enviar:', cardData);
                             label='Fecha de expiración (YY/MM)'
                             value={formData.expirationDate.value}
                             onChangeHandler={handleValueChange}
-                            placeholder='MM/YY'
+                            placeholder='YY/MM'
                             type='text'
                             onBlurHandler={handleValidationOnBlur}
                             showErrorMessage={formData.expirationDate.showErrors}

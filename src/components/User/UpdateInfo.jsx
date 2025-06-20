@@ -115,6 +115,17 @@ export const UpdatePage = () => {
             className="w-full px-4 py-2 border rounded-md bg-gray-100"
           />
         </div>
+        <div className="block text-gray-700 text-sm font-medium mb-1">
+                <label>Dirección:</label>
+                <input
+                name="address"
+                value={formData.address}
+                onChange={handleChange}
+                className="w-full px-4 py-2 border rounded-md bg-gray-100"
+                minLength={20}
+                maxLength={200}
+                />
+            </div>
 
         <div className="flex flex-wrap gap-4 justify-center pt-4">
           <button
@@ -138,7 +149,7 @@ export const UpdatePage = () => {
               type="button"
               className="bg-blue-400 hover:bg-blue-600 text-black px-4 py-2 rounded"
             >
-              Change password
+              Change Profile Picture
             </button>
           </Link>
           

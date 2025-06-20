@@ -13,6 +13,7 @@ export const useUser=()=>{
     const updateUser = async(id,data)=>{
         setIsLoading(true)
         const response = await updateUserRequest(id,data)
+        console.log(response.e);
         
         
         if(response.error){

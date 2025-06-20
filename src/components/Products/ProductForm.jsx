@@ -95,10 +95,10 @@ export const ProductForm = () => {
 
     if (isEditMode) {
       const updated = await updateProduct(id, data)
-      if (updated) navigate('/dashboard/categories')
+      if (updated) navigate('/products/list')
     } else {
       await addProduct(data)
-      navigate('/dashboard/categories')
+      navigate('/products/list')
     }
   }
 

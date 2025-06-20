@@ -49,7 +49,7 @@ export const OrderCard = () => {
             <div className="mb-4">
               <div className="text-xs text-indigo-200 mb-1">Cliente</div>
               <div className="text-base font-semibold">
-                {order.user.name + ' ' + order.user.surname}
+                {order.user ? `${order.user.name} ${order.user.surname}` : 'Sin nombre de cliente'}
               </div>
             </div>
 
