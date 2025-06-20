@@ -2,12 +2,11 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { FaUserCircle, FaShoppingCart, FaTh } from 'react-icons/fa';
 
-const Navbar = () => {
-  const [isOpen, setIsOpen] = useState(false);
+const Navbar = ({ searchTerm, setSearchTerm }) => {
   const isLogged = true;
 
   return (
-  <nav className="w-full bg-yellow-400 shadow-md fixed top-0 left-0 z-50 ">
+    <nav className="w-full bg-yellow-400 shadow-md fixed top-0 left-0 z-50 ">
       <div className="flex items-center justify-between px-4 py-3">
         <div className="flex items-center gap-2">
           <Link to="/" className="flex items-center">
@@ -22,42 +21,52 @@ const Navbar = () => {
               </h1>
             </div>
           </Link>
-          <Link to="/dashboard/categories"><FaTh className="text-black ml-2 text-lg" /></Link>
+          <Link to="/dashboard/categories">
+            <FaTh className="text-black ml-2 text-lg" />
+          </Link>
         </div>
+
+        {/* Buscador */}
         <div className="flex-grow mx-6">
           <input
             type="text"
             placeholder="Buscar productos..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
             className="w-full rounded-full px-4 py-2 bg-gray-200 text-sm focus:outline-none"
           />
         </div>
 
-        {/* Icons */}
         <div className="flex items-center gap-4">
-          <Link to="/dashboard/profile/updateProfile"><FaUserCircle className="text-black text-xl cursor-pointer"/></Link>
-          <Link to='/orders/completeOrder'><FaShoppingCart className="text-black text-xl cursor-pointer"/></Link>
+          <Link to="/dashboard/profile/updateProfile">
+            <FaUserCircle className="text-black text-xl cursor-pointer" />
+          </Link>
+          <Link to="/orders/completeOrder">
+            <FaShoppingCart className="text-black text-xl cursor-pointer" />
+          </Link>
         </div>
       </div>
 
-      {/* Bottom nav (like Empleados | Productos | Logout | Administración) */}
+      {/* Menú inferior */}
       <div className="border-t border-yellow-300 text-sm text-black px-6 py-1 flex justify-between items-center">
         <div className="flex gap-6">
-          <Link to="/users/getUsers" className="hover:underline">Empleados</Link>
-          <Link to="/products/list" className="hover:underline">Productos</Link>
+          <Link to="/users/getUsers" className="hover:underline">
+            Empleados
+          </Link>
+          <Link to="/products/list" className="hover:underline">
+            Productos
+          </Link>
         </div>
         <div className="flex gap-2 items-center">
           {isLogged && (
-            <>
-              <Link to="/">
+            <Link to="/">
               <button className="hover:underline">Logout</button>
               <span className="text-xs">▼</span>
-              </Link>
-            </>
+            </Link>
           )}
         </div>
       </div>
     </nav>
-  );
-};
-
-export default Navbar;
+  )
+}
+ export default Navbar

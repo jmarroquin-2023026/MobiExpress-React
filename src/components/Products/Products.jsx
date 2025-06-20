@@ -3,12 +3,16 @@ import { useOutletContext, useNavigate } from 'react-router-dom'
 import { ProductCard } from './ProductCard'
 
 export const Products = () => {
-  const { products } = useOutletContext()
+  const { products, searchTerm } = useOutletContext()
   const navigate = useNavigate()
 
   const handleAddProduct = () => {
     navigate('/products/form')
   }
+
+  const filteredProducts = products.filter((product) =>
+    product.name.toLowerCase().includes(searchTerm.toLowerCase())
+  )
 
   return (
     <div className="p-4">
@@ -23,7 +27,7 @@ export const Products = () => {
       </div>
 
       <div className="flex flex-wrap gap-4">
-        {products.map((product) => (
+        {filteredProducts.map((product) => (
           <ProductCard
             key={product._id}
             id={product._id}
