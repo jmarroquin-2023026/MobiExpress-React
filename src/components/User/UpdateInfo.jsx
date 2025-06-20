@@ -141,13 +141,15 @@ export const UpdatePage = () => {
               Change password
             </button>
           </Link>
-
-          <button
+          
+          <Link to='/orders/MyOrder'>
+            <button
             type="button"
             className="bg-green-400 hover:bg-green-500 text-white px-4 py-2 rounded"
           >
             Historial
           </button>
+          </Link>
         </div>
       </form>
     </div>

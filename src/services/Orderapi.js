@@ -32,7 +32,7 @@ export const getOrdersRequest=async()=>{
 
 export const addOrderRequest=async(order)=>{
     try{
-        return await apiClient.post('/order-register',order)
+        return await apiClient.post('/add',order)
     }catch(e){
         return{
             error:true,

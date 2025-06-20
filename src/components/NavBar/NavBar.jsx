@@ -35,7 +35,7 @@ const Navbar = () => {
         {/* Icons */}
         <div className="flex items-center gap-4">
           <Link to="/dashboard/profile/updateProfile"><FaUserCircle className="text-black text-xl cursor-pointer"/></Link>
-          <Link><FaShoppingCart className="text-black text-xl cursor-pointer"/></Link>
+          <Link to='/orders/completeOrder'><FaShoppingCart className="text-black text-xl cursor-pointer"/></Link>
         </div>
       </div>
 

@@ -25,6 +25,7 @@ import { OrderCard } from "./components/Order/OrderCard";
 import { UserOrderCard } from "./components/Order/UserOrderCard";
 import { ProductDetails } from "./components/Products/ProductDetails";
 import { ProductForm } from "./components/Products/ProductForm";
+import { OrderForm } from "./components/Order/OrderForm";
 
 export const routes = [
     {
@@ -139,6 +140,10 @@ export const routes = [
             {
                 path:'MyOrder',
                 element:<UserOrderCard/>
+            },
+            {
+                path:'completeOrder',
+                element:<OrderForm/>
             }
         ]
     }

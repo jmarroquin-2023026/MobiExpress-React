@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import { useOrder } from '../../shared/hooks/order/useOrder'
 import { useUpdateOrder } from '../../shared/hooks/order/useUpdateOrder'
 import toast from 'react-hot-toast'
+import Navbar from '../NavBar/NavBar'
 
 export const OrderCard = () => {
   const { getOrders, allOrders } = useOrder()
@@ -31,7 +32,8 @@ export const OrderCard = () => {
 
   return (
     <div className="px-6 py-8">
-      <h2 className="text-3xl font-bold mb-8 text-center text-gray-800">Pedidos Registrados</h2>
+      <Navbar/>
+      <h2 className="mt-20 text-3xl font-bold mb-8 text-center text-gray-800">Pedidos Registrados</h2>
 
       <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         {allOrders.map((order) => (

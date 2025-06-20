@@ -7,7 +7,7 @@ export const Categories = () => {
 
   return (
     <div className='mt-30'>
-      <h1>Categorias</h1>
+      <h1 className='text-4xl font-bold'>Categorias</h1>
       {
         categories.map((category)=>(
           <CategoryCard
