@@ -97,6 +97,17 @@ export const deleteProductRequest=async(id)=>{
     }
 }
 
+export const getProductRequest=async(id)=>{
+    try{
+        return await apiClient.get(`/getById/${id}`)
+    }catch(e){
+        return{
+            error:true,
+            e
+        }
+    }
+}
+
 // Productsapi.js
 export const getLimitedProductsRequest = async (limit = 10) => {
   return await apiClient.get(`/getProduct?limit=${limit}`)

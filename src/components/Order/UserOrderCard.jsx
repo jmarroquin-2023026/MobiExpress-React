@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react'
 import { useUserOrders } from '../../shared/hooks/order/userOrderOfUser'
-
-
+import Navbar from '../NavBar/NavBar'
 
 
 export const UserOrderCard = () => {
@@ -16,7 +15,8 @@ export const UserOrderCard = () => {
 
   return (
     <div className="px-6 py-8">
-      <h2 className="text-3xl font-bold mb-8 text-center text-gray-800">Mis Pedidos</h2>
+      <Navbar/>
+      <h2 className=" mt-20 text-3xl font-bold mb-8 text-center text-gray-800">Mis Pedidos</h2>
 
       <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         {userOrders.map((order) => (

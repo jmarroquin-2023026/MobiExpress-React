@@ -28,6 +28,11 @@ export const validateProductStock = (stock) => {
     return regex.test(stock) && parseInt(stock) >= 0
 }
 
+export const validateProductDiscount = (discount) => {
+    const regex = /^(100|[1-9]?[0-9])%$/
+    return regex.test(discount.trim())
+}
+
 export const validateProductImages = (images) => {
     if (!images || images.length === 0 || images.length > 3) return false
     
@@ -46,3 +51,4 @@ export const validateProductPriceMsg = 'El precio debe ser un número positivo (
 export const validateProductBrandMsg = 'La marca debe contener entre 2 y 30 caracteres (letras, números o guiones)'
 export const validateProductStockMsg = 'El stock debe ser un número entero positivo'
 export const validateProductImagesMsg = 'Debe subir entre 1 y 3 imágenes válidas (JPEG/PNG/JPG/WEBP, máx 10MB cada una)'
+export const validateProductDiscountMsg = 'Tiene que ser un numero del 1% al 100%'

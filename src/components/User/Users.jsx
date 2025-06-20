@@ -26,7 +26,7 @@ export const Users = () => {
   }, [filter])
 
   return (
-    <div className="p-6">
+    <div className="mt-20 p-6">
       <div className="mb-4">
         <label className="mr-2 font-medium text-gray-700">Filtrar:</label>
         <select
