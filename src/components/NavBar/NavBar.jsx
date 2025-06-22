@@ -5,6 +5,11 @@ import { FaUserCircle, FaShoppingCart, FaTh } from 'react-icons/fa';
 const Navbar = ({ searchTerm, setSearchTerm }) => {
   const isLogged = true;
   const isAdmin = JSON.parse(localStorage.getItem("user")).role === "ADMIN"
+
+  const handleLogOut=()=>{
+    localStorage.removeItem('token')
+    localStorage.removeItem('user')
+  }
   return (
     <nav className="w-full bg-yellow-400 shadow-md fixed top-0 left-0 z-50 ">
       <div className="flex items-center justify-between px-4 py-3">
@@ -76,7 +81,7 @@ const Navbar = ({ searchTerm, setSearchTerm }) => {
         <div className="flex gap-2 items-center">
           {isLogged && (
             <Link to="/">
-              <button className="hover:underline">Logout</button>
+              <button className="hover:underline" onClick={handleLogOut}>Logout</button>
               <span className="text-xs">▼</span>
             </Link>
           )}
