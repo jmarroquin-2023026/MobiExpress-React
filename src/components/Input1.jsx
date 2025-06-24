@@ -46,7 +46,8 @@ export const Input1 = ({
                         onBlur={handleOnBlur}
                         placeholder={placeholder}
                         multiple
-                        className="shadow-sm bg-gray-700 border border-gray-600 text-white text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full py-3 px-4 placeholder-gray-400 "
+                       className="shadow-sm bg-white border border-gray-300 text-gray-800 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full py-3 px-4 placeholder-gray-500"
+
                     />
                 )
             }

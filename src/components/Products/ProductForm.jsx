@@ -11,6 +11,7 @@ import {
   validateProductPriceMsg, validateProductBrandMsg, validateProductStockMsg,
   validateProductDiscountMsg, validateProductImagesMsg
 } from '../../shared/validators/productValidator'
+import Select from 'react-select'
 
 export const ProductForm = () => {
   const form = {
@@ -35,6 +36,11 @@ export const ProductForm = () => {
   useEffect(() => { getCategories() }, [])
 
   const [formData, setFormData] = useState(form)
+
+  const categoryOptions = allCategories.map(cat => ({
+  value: cat._id,
+  label: cat.name
+}))
 
   const isSubmitButtonDisable =
     !formData.name.isValid ||
@@ -103,125 +109,133 @@ export const ProductForm = () => {
   }
 
   return (
-    <div className="max-w-md mx-auto p-6 bg-white rounded-lg shadow-xs dark:bg-gray-800">
-      <form onSubmit={handleSubmit}>
-        <div className="mb-5">
-          <Input1
-            field='name'
-            label='Name'
-            value={formData.name.value}
-            placeholder="Enter product name"
-            type='text'
-            onChangeHandler={handleValueChange}
-            onBlurHandler={handleValidationOnBlur}
-            showErrorMessage={formData.name.showError}
-            validationMessage={validateProductNameMsg}
-          />
-        </div>
-        <div className="mb-5">
-          <Input1
-            field='description'
-            label='Product description'
-            value={formData.description.value}
-            placeholder="Enter product description"
-            type='text'
-            onChangeHandler={handleValueChange}
-            onBlurHandler={handleValidationOnBlur}
-            showErrorMessage={formData.description.showError}
-            validationMessage={validateProductDescriptionMsg}
-          />
-        </div>
-        <div className="mb-5">
-          <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-            Categories
-          </label>
-          <select
-            id="category"
-            multiple
-            value={formData.category.value}
-            onChange={(e) => handleValueChange(e, 'category')}
-            className="shadow-xs bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-          >
-            {allCategories.map((cat) => (
-              <option key={cat._id} value={cat._id}>{cat.name}</option>
-            ))}
-          </select>
-        </div>
-        <div className="mb-5">
-          <Input1
-            field='price'
-            label='Product price'
-            value={formData.price.value}
-            placeholder="Enter product price"
-            type='text'
-            onChangeHandler={handleValueChange}
-            onBlurHandler={handleValidationOnBlur}
-            showErrorMessage={formData.price.showError}
-            validationMessage={validateProductPriceMsg}
-          />
-        </div>
-        <div className="mb-5">
-          <Input1
-            field='brand'
-            label='Brand'
-            value={formData.brand.value}
-            placeholder="Enter product brand"
-            type='text'
-            onChangeHandler={handleValueChange}
-            onBlurHandler={handleValidationOnBlur}
-            showErrorMessage={formData.brand.showError}
-            validationMessage={validateProductBrandMsg}
-          />
-        </div>
-        <div className="mb-5">
-          <Input1
-            field='stock'
-            label='Stock'
-            value={formData.stock.value}
-            placeholder="Enter product stock"
-            type='text'
-            onChangeHandler={handleValueChange}
-            onBlurHandler={handleValidationOnBlur}
-            showErrorMessage={formData.stock.showError}
-            validationMessage={validateProductStockMsg}
-          />
-        </div>
-        <div className="mb-5">
-          <Input1
-            field='discount'
-            label='Discount'
-            value={formData.discount.value}
-            placeholder="Enter product discount"
-            type='text'
-            onChangeHandler={handleValueChange}
-            onBlurHandler={handleValidationOnBlur}
-            showErrorMessage={formData.discount.showError}
-            validationMessage={validateProductDiscountMsg}
-          />
-        </div>
-        <div className="mb-5">
-          <Input1
-            field='images'
-            label='Images'
-            value={formData.images.value}
-            placeholder="Upload product images"
-            type='file'
-            onChangeHandler={handleValueChange}
-            onBlurHandler={handleValidationOnBlur}
-            showErrorMessage={formData.images.showError}
-            validationMessage={validateProductImagesMsg}
-          />
-        </div>
+    <div className="min-h-screen bg-gray-100 py-12 px-4">
+  <div className="max-w-xl mx-auto bg-white rounded-lg shadow-md p-8">
+    <h2 className="text-2xl font-bold mb-8 text-center text-gray-800">
+      {id ? 'Actualizar Producto' : 'Crear Nuevo Producto'}
+    </h2>
+
+    <form onSubmit={handleSubmit} className="space-y-5">
+
+      <Input1
+        field="name"
+        label="Nombre del producto"
+        value={formData.name.value}
+        placeholder="Nombre"
+        type="text"
+        onChangeHandler={handleValueChange}
+        onBlurHandler={handleValidationOnBlur}
+        showErrorMessage={formData.name.showError}
+        validationMessage={validateProductNameMsg}
+      />
+
+      <Input1
+        field="brand"
+        label="Marca"
+        value={formData.brand.value}
+        placeholder="Marca"
+        type="text"
+        onChangeHandler={handleValueChange}
+        onBlurHandler={handleValidationOnBlur}
+        showErrorMessage={formData.brand.showError}
+        validationMessage={validateProductBrandMsg}
+      />
+
+      <Input1
+        field="price"
+        label="Precio"
+        value={formData.price.value}
+        placeholder="Precio"
+        type="text"
+        onChangeHandler={handleValueChange}
+        onBlurHandler={handleValidationOnBlur}
+        showErrorMessage={formData.price.showError}
+        validationMessage={validateProductPriceMsg}
+      />
+
+      <Input1
+        field="stock"
+        label="Stock"
+        value={formData.stock.value}
+        placeholder="Stock"
+        type="text"
+        onChangeHandler={handleValueChange}
+        onBlurHandler={handleValidationOnBlur}
+        showErrorMessage={formData.stock.showError}
+        validationMessage={validateProductStockMsg}
+      />
+
+      <Input1
+        field="discount"
+        label="Descuento (%)"
+        value={formData.discount.value}
+        placeholder="Descuento"
+        type="text"
+        onChangeHandler={handleValueChange}
+        onBlurHandler={handleValidationOnBlur}
+        showErrorMessage={formData.discount.showError}
+        validationMessage={validateProductDiscountMsg}
+      />
+
+      <div>
+  <label className="block text-sm font-medium text-gray-600 mb-1">Categorías</label>
+  <Select
+    isMulti
+    options={categoryOptions}
+    value={categoryOptions.filter(opt => formData.category.value.includes(opt.value))}
+    onChange={(selectedOptions) => {
+      const values = selectedOptions.map(opt => opt.value)
+      setFormData(prev => ({
+        ...prev,
+        category: { ...prev.category, value: values }
+      }))
+    }}
+    className="text-sm"
+    classNamePrefix="react-select"
+    placeholder="Selecciona categorías..."
+  />
+</div>
+
+
+      <Input1
+        field="description"
+        label="Descripción del producto"
+        value={formData.description.value}
+        placeholder="Descripción"
+        type="text"
+        onChangeHandler={handleValueChange}
+        onBlurHandler={handleValidationOnBlur}
+        showErrorMessage={formData.description.showError}
+        validationMessage={validateProductDescriptionMsg}
+      />
+
+      <Input1
+        field="images"
+        label="Imágenes"
+        value={formData.images.value}
+        type="file"
+        onChangeHandler={handleValueChange}
+        onBlurHandler={handleValidationOnBlur}
+        showErrorMessage={formData.images.showError}
+        validationMessage={validateProductImagesMsg}
+      />
+
+      <div className="text-center">
         <button
-          type='submit'
+          type="submit"
           disabled={isSubmitButtonDisable}
-          className={`text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 ${
-            isSubmitButtonDisable ? 'opacity-50 cursor-not-allowed' : ''
+          className={`px-6 py-2 rounded-md font-semibold text-white transition-colors ${
+            isSubmitButtonDisable
+              ? 'bg-blue-300 cursor-not-allowed'
+              : 'bg-blue-500 hover:bg-blue-600'
           }`}
         >
           {id ? 'Actualizar Producto' : 'Crear Producto'}
         </button>
-      </form>
-    </div>
+      </div>
+    </form>
+  </div>
+</div>
+
   )
 }

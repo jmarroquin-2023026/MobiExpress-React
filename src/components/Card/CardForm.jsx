@@ -143,7 +143,7 @@ console.log('Datos a enviar:', cardData);
                     <div className="grid grid-cols-2 gap-4 mb-4">
                         <Input
                             field='expirationDate'
-                            label='Fecha de expiración (YY/MM)'
+                            label='Fecha de expiración (MM/YY)'
                             value={formData.expirationDate.value}
                             onChangeHandler={handleValueChange}
                             placeholder='YY/MM'

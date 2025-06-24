@@ -21,9 +21,7 @@ export const CategoryCard = ({ name, id, picture, navigateToCategoryHandler }) =
   }
 
   const handleDeleteButton = async () => {
-    const confirmed = window.confirm(
-      "¿Estás seguro de que deseas eliminar esta categoría?"
-    )
+    const confirmed = window.confirm("¿Estás seguro de que deseas eliminar esta categoría?")
     if (!confirmed) return
 
     const success = await deleteCategory(id)
@@ -56,65 +54,52 @@ export const CategoryCard = ({ name, id, picture, navigateToCategoryHandler }) =
       </div>
 
       {/* Contenido */}
-      {isAdmin ? (
-        <div className="flex flex-col justify-between flex-grow h-full w-full">
-          <h3 className="text-xl font-semibold text-gray-800 mb-4 border-b pb-2">
-            {name}
-          </h3>
+      <div className="flex flex-col justify-between flex-grow h-full w-full">
+        <h3 className="text-xl font-semibold text-gray-800 mb-4 border-b pb-2">{name}</h3>
 
-          <div className="flex flex-wrap gap-3">
-            <button
-              className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded shadow-sm transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-              onClick={(e) => {
-                e.stopPropagation()
-                handleDeleteButton()
-              }}
-              disabled={isLoading}
-              type="button"
-            >
-              {isLoading ? "Eliminando..." : "Eliminar"}
-            </button>
+        <div className="flex flex-wrap gap-3">
+          {/* Botón común para todos */}
+          <button
+            className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded shadow-sm transition-colors"
+            onClick={(e) => {
+              e.stopPropagation()
+              searchByCategory(id)
+            }}
+            disabled={isLoading}
+            type="button"
+          >
+            Productos
+          </button>
 
-            <button
-              className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded shadow-sm transition-colors"
-              onClick={(e) => {
-                e.stopPropagation()
-                handleEditButton(id)
-              }}
-              type="button"
-            >
-              Actualizar
-            </button>
+          {/* Botones exclusivos para admin */}
+          {isAdmin && (
+            <>
+              <button
+                className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded shadow-sm transition-colors"
+                onClick={(e) => {
+                  e.stopPropagation()
+                  handleEditButton(id)
+                }}
+                type="button"
+              >
+                Actualizar
+              </button>
 
-            <button
-              className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded shadow-sm transition-colors ml-auto"
-              onClick={(e) => {
-                e.stopPropagation()
-                searchByCategory(id)
-              }}
-              type="button"
-              disabled={isLoading}
-            >
-              Productos
-            </button>
-          </div>
+              <button
+                className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded shadow-sm transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                onClick={(e) => {
+                  e.stopPropagation()
+                  handleDeleteButton()
+                }}
+                disabled={isLoading}
+                type="button"
+              >
+                {isLoading ? "Eliminando..." : "Eliminar"}
+              </button>
+            </>
+          )}
         </div>
-      ) : (
-        <span className="text-lg font-medium text-gray-700">{name}</span>
-      )}
-      <button
-             
-              className="bg-red-500 text-white px-4 py-2 rounded"
-              onClick={(e) => {
-                e.stopPropagation()
-                searchByCategory(id)
-              }}
-              disabled={isLoading}
-  
-            >
-              
-              Products
-            </button>
+      </div>
     </div>
   )
 }
