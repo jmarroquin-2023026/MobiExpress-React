@@ -58,7 +58,6 @@ export const Login = ({ switchAuthHandler }) => {
                             label="Username o Email"
                             value={formData.userLogin.value}
                             onChangeHandler={onValueChange}
-                            placeholder="example@mail.com"
                             type="text"
                             onBlurHandler={handleValidationOnBlur}
                             showErrorMessage={formData.userLogin.showError}

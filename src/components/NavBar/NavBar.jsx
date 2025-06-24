@@ -72,9 +72,6 @@ const Navbar = ({ searchTerm, setSearchTerm }) => {
             <Link to="/products/list" className="hover:underline">
             Productos
           </Link>
-          <Link to="/orders/Allorders" className="hover:underline">
-            pedidos
-          </Link>
           </div>
           )}
         </div>

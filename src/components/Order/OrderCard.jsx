@@ -1,12 +1,11 @@
 import React, { useEffect } from 'react'
 import { useOrder } from '../../shared/hooks/order/useOrder'
 import { useUpdateOrder } from '../../shared/hooks/order/useUpdateOrder'
-import toast from 'react-hot-toast'
 import Navbar from '../NavBar/NavBar'
 
 export const OrderCard = () => {
   const { getOrders, allOrders } = useOrder()
-  const { updateOrder, isLoading } = useUpdateOrder()
+  const { isLoading } = useUpdateOrder()
 
   useEffect(() => {
     getOrders()
@@ -15,24 +14,9 @@ export const OrderCard = () => {
   if (allOrders.length === 0)
     return <p className="text-center py-4">No hay pedidos registrados.</p>
 
-  const handleUpdate = async (orderId, newStatus) => {
-    const confirmed = window.confirm(`¿Deseas cambiar el estado del pedido a "${newStatus}"?`)
-    if (!confirmed) return
-
-    const success = await updateOrder(orderId, newStatus)
-
-    if (success) {
-      toast.success('Estado del pedido actualizado')
-      getOrders()
-    } else {
-      toast.error('No se pudo actualizar el estado')
-    }
-  }
-
-
   return (
     <div className="px-6 py-8">
-      <Navbar/>
+      <Navbar />
       <h2 className="mt-20 text-3xl font-bold mb-8 text-center text-gray-800">Pedidos Registrados</h2>
 
       <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
@@ -60,16 +44,20 @@ export const OrderCard = () => {
 
             <div className="mb-4">
               <div className="text-xs text-indigo-200 mb-1">Estado actual</div>
-              <select
-                value={order.status}
-                onChange={(e) => handleUpdate(order._id, e.target.value)}
-                className={`w-full text-sm border rounded-md p-1 text-gray-400 shadow-sm`}
-                disabled={isLoading}
-              >
-                <option value="in_use">En uso</option>
-                <option value="returned">Devuelto</option>
-              </select>
+              {order.status === 'cancelled' ? (
+                <button
+                  disabled
+                  className="bg-red-600 text-white text-sm px-3 py-1 rounded-lg cursor-not-allowed"
+                >
+                  Cancelado
+                </button>
+              ) : (
+                <span className="text-sm">
+                  {order.status === 'returned' ? 'Devuelto' : 'En uso'}
+                </span>
+              )}
             </div>
+
             <div className="mb-4">
               <div className="text-xs text-indigo-200 mb-1">Fecha de devolución</div>
               <div className="text-sm">

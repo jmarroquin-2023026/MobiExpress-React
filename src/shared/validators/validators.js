@@ -1,9 +1,10 @@
-export const validateEmailOrUsername = (user) => {
-    const emailRegex = /\S+@\S+\.\S+/
-    const usernameRegex = /^\S{3,8}$/
+export const validateEmailOrUsername = (input) => {
+  const emailRegex = /^\S+@\S+\.\S+$/;
+  const usernameRegex = /^[a-zA-Z0-9_]{3,15}$/; // Ej: josue_12
 
-    return emailRegex.test(user) || usernameRegex.test(user);
-}
+  return emailRegex.test(input) || usernameRegex.test(input);
+};
+
 
 export const validateName = (name) => {
     const regex = /^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]{3,30}$/

@@ -1,27 +1,51 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useUserOrders } from '../../shared/hooks/order/userOrderOfUser'
+import { useUpdateOrder } from '../../shared/hooks/order/useUpdateOrder'
 import Navbar from '../NavBar/NavBar'
-
+import toast from 'react-hot-toast'
 
 export const UserOrderCard = () => {
   const { getUserOrders, userOrders } = useUserOrders()
+  const { updateOrder, isLoading } = useUpdateOrder()
+  const [updatingOrderId, setUpdatingOrderId] = useState(null)
 
   useEffect(() => {
     getUserOrders()
   }, [])
 
+  const handleCancelOrder = async (orderId) => {
+    const confirm = window.confirm('¿Estás seguro de que deseas cancelar este pedido?')
+    if (!confirm) return
+
+    try {
+      setUpdatingOrderId(orderId)
+      const success = await updateOrder(orderId, 'cancelled')
+      if (success) {
+        toast.success('Pedido cancelado correctamente')
+        await getUserOrders()
+      } else {
+        toast.error('No se pudo cancelar el pedido')
+      }
+    } catch (error) {
+      console.error('Error al cancelar el pedido:', error)
+      toast.error('Error interno al cancelar el pedido')
+    } finally {
+      setUpdatingOrderId(null)
+    }
+  }
+
   if (userOrders.length === 0)
-    return(
-        <div>
-        <Navbar/>
+    return (
+      <div>
+        <Navbar />
         <p className="text-center py-4 mt-36">No hay pedidos registrados para este usuario.</p>
-        </div>
-   )
+      </div>
+    )
 
   return (
     <div className="px-6 py-8">
-      <Navbar/>
-      <h2 className=" mt-20 text-3xl font-bold mb-8 text-center text-gray-800">Mis Pedidos</h2>
+      <Navbar />
+      <h2 className="mt-20 text-3xl font-bold mb-8 text-center text-gray-800">Mis Pedidos</h2>
 
       <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         {userOrders.map((order) => (
@@ -41,7 +65,13 @@ export const UserOrderCard = () => {
 
             <div className="mb-4">
               <div className="text-xs text-indigo-200 mb-1">Estado</div>
-              <div className="text-sm">{order.status === 'returned' ? 'Devuelto' : 'En uso'}</div>
+              <div className="text-sm">
+                {order.status === 'returned'
+                  ? 'Devuelto'
+                  : order.status === 'cancelled'
+                  ? 'Cancelado'
+                  : 'En uso'}
+              </div>
             </div>
 
             <div className="mb-4">
@@ -50,6 +80,17 @@ export const UserOrderCard = () => {
                 {new Date(order.returnDate).toLocaleDateString('es-ES')}
               </div>
             </div>
+
+            {/* Botón solo si no está cancelado ni devuelto */}
+            {order.status !== 'cancelled' && order.status !== 'returned' && (
+              <button
+                onClick={() => handleCancelOrder(order._id)}
+                className="mt-2 bg-red-600 hover:bg-red-700 px-4 py-2 rounded-lg text-white text-sm font-medium disabled:opacity-50"
+                disabled={isLoading || updatingOrderId === order._id}
+              >
+                {updatingOrderId === order._id ? 'Cancelando...' : 'Cancelar Pedido'}
+              </button>
+            )}
           </div>
         ))}
       </div>

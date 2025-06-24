@@ -175,7 +175,6 @@ export const Register = ({ switchAuthHandler }) => {
                                 
                             />
                         </div>
-                        <span>{emailMessage}</span>
                         <div className="flex gap-4 mb-4">
                             <div className='flex flex-col'>
                                 <label className="block mb-1 font-medium text-gray-700 ">Name</label>
@@ -213,14 +212,13 @@ export const Register = ({ switchAuthHandler }) => {
                                 field='username'
                                 onChangeHandler={handleValueChange}
                                 value={formData.username.value} 
-                                placeholder={formData.username.value}
+
                                 type='text'
                                 onBlurHandler={handleValidationOnBlur}
                                 showErrorMessage={formData.username.showError}
                                 validationMessage={usernameValidationMessage}
                                 className="flex-1 p-2 box-border border border-gray-300 rounded"
                             />
-                            <span>{usernameMessage}</span>
                             </div>
                             <div className='flex flex-col'>
                                <label className="block mb-1 font-medium text-gray-700">Phone</label>

@@ -1,18 +1,35 @@
-import { Link } from 'react-router-dom'
+import React, { useState, useEffect } from 'react'
 import { useUser } from '../../shared/hooks/user/useUser'
 import { DeleteProfile } from './DeleteProfile'
-import React, { useState, useEffect } from 'react'
+import { Link } from 'react-router-dom';
 
 export const UpdatePage = () => {
   const [initialData, setInitialData] = useState(null)
   const { getUser, updateUser, userData } = useUser()
 
   useEffect(() => {
-    // Asumiendo que getUser obtiene los datos del usuario
-    if (userData) {
-      setInitialData(userData) // Establecer datos iniciales
+    const loadUserData = async () => {
+      try {
+        const user = JSON.parse(localStorage.getItem('user'))
+        await getUser(user.uid)
+      } catch (error) {
+        console.error('Error al cargar datos del usuario:', error)
+      }
     }
-  }, [userData]) // Actualiza los datos cuando userData cambia
+    loadUserData()
+    setInitialData(userData)
+  }, [])
+
+  useEffect(() => {
+    setFormData({
+      name: userData?.name || '',
+      surname: userData?.surname || '',
+      email: userData?.email || '',
+      username: userData?.username || '',
+      phone: userData?.phone || '',
+      address: userData?.address || ''
+    })
+  }, [userData])
 
   const [formData, setFormData] = useState({
     name: '',
@@ -23,23 +40,9 @@ export const UpdatePage = () => {
     address: ''
   })
 
-  useEffect(() => {
-    // Asignar los datos del usuario al formulario cuando 'userData' cambie
-    if (userData) {
-      setFormData({
-        name: userData?.name || '',
-        surname: userData?.surname || '',
-        email: userData?.email || '',
-        username: userData?.username || '',
-        phone: userData?.phone || '',
-        address: userData?.address || ''
-      })
-    }
-  }, [userData])
-
   const handleChange = (e) => {
     const { name, value } = e.target
-    setFormData((prev) => ({ ...prev, [name]: value }))
+    setFormData(prev => ({ ...prev, [name]: value }))
   }
 
   const handleSubmit = (e) => {
@@ -115,19 +118,8 @@ export const UpdatePage = () => {
             className="w-full px-4 py-2 border rounded-md bg-gray-100"
           />
         </div>
-        <div className="block text-gray-700 text-sm font-medium mb-1">
-                <label>Dirección:</label>
-                <input
-                name="address"
-                value={formData.address}
-                onChange={handleChange}
-                className="w-full px-4 py-2 border rounded-md bg-gray-100"
-                minLength={20}
-                maxLength={200}
-                />
-            </div>
 
-        <div className="flex flex-wrap gap-4 justify-center pt-4">
+         <div className="flex flex-wrap gap-4 justify-center pt-4">
           <button
             type="submit"
             className="bg-sky-400 hover:bg-sky-500 text-white px-4 py-2 rounded"
@@ -162,7 +154,8 @@ export const UpdatePage = () => {
           </button>
           </Link>
         </div>
+
       </form>
     </div>
-  )
-}
+    );
+};

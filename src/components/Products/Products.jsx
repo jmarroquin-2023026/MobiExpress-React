@@ -56,6 +56,7 @@ export const Products = () => {
   const handleAddProduct = () => {
     navigate('/products/form')
   }
+   const isAdmin = JSON.parse(localStorage.getItem("user")).role === "ADMIN"
 
   return (
     <div className="flex">
@@ -70,12 +71,16 @@ export const Products = () => {
       <div className="flex-1 p-4">
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-xl font-bold">Lista de Productos</h2>
-          <button
+          {isAdmin?(
+            <button
             onClick={handleAddProduct}
             className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md"
           >
             Agregar
           </button>
+          ):(
+            <></>
+          )}
         </div>
 
         {/* Lista de productos filtrados */}
