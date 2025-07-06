@@ -122,37 +122,38 @@ export const UpdatePage = () => {
          <div className="flex flex-wrap gap-4 justify-center pt-4">
           <button
             type="submit"
-            className="bg-sky-400 hover:bg-sky-500 text-white px-4 py-2 rounded"
+            className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded"
           >
-            Update
+            Actualizar
           </button>
-          <DeleteProfile className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded" />
+          
 
           <Link to="/dashboard/profile/updatePassword">
             <button
               type="button"
-              className="bg-yellow-300 hover:bg-yellow-400 text-black px-4 py-2 rounded"
+              className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded"
             >
-              Change password
+              Cambiar contraseña
             </button>
           </Link>
           <Link to="/dashboard/profile/changeProfilePicture">
             <button
               type="button"
-              className="bg-blue-400 hover:bg-blue-600 text-black px-4 py-2 rounded"
+              className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded"
             >
-              Change Profile Picture
+              Cambiar foto de perfil
             </button>
           </Link>
           
           <Link to='/orders/MyOrder'>
             <button
             type="button"
-            className="bg-green-400 hover:bg-green-500 text-white px-4 py-2 rounded"
+            className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded"
           >
             Historial
           </button>
           </Link>
+          <DeleteProfile className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded" />
         </div>
 
       </form>

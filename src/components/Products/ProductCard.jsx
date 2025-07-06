@@ -67,16 +67,16 @@ export const ProductCard = ({ id, name, description, category, price, brand, sto
 
         <div className="flex gap-2">
           <button
-            className="bg-green-500 hover:bg-green-600 text-white py-1 px-4 rounded"
+            className="bg-blue-600 hover:bg-blue-700 text-white py-1 px-4 rounded"
             onClick={handleDetailsButton} // <-- sin pasar (id), solo referencia la función
           >
-            Details 📖
+            Detalles
           </button>
 
 
           <button
             onClick={handleEditButton}
-            className="px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded"
+            className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded"
           >
             Actualizar
           </button>
@@ -121,7 +121,7 @@ export const ProductCard = ({ id, name, description, category, price, brand, sto
             className="bg-yellow-500 hover:bg-yellow-600 text-white py-1 px-4 rounded"
             onClick={handleDetailsButton} // <-- sin pasar (id), solo referencia la función
           >
-            Details 📖
+            Ver Detalles
           </button>
         </div>
       </div>

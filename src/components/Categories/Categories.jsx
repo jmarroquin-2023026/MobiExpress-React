@@ -18,7 +18,7 @@ export const Categories = () => {
         {isAdmin && (
           <button
             onClick={() => navigate('/dashboard/addCategory')}
-            className="bg-green-500 hover:bg-green-600 text-white font-semibold px-4 py-2 rounded-md shadow"
+            className="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-4 py-2 rounded-md shadow"
           >
             + Nueva Categoría
           </button>

@@ -60,7 +60,7 @@ export const CategoryCard = ({ name, id, picture, navigateToCategoryHandler }) =
         <div className="flex flex-wrap gap-3">
           {/* Botón común para todos */}
           <button
-            className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded shadow-sm transition-colors"
+            className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded shadow-sm transition-colors"
             onClick={(e) => {
               e.stopPropagation()
               searchByCategory(id)
