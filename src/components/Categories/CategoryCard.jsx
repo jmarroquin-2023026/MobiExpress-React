@@ -49,7 +49,7 @@ export const CategoryCard = ({ name, id, picture, navigateToCategoryHandler }) =
           src={`http://localhost:2636/uploads/img/categories/${picture}`}
           alt={name}
           className="w-full h-full object-cover"
-          draggable={false}
+          draggable={false} 
         />
       </div>
 

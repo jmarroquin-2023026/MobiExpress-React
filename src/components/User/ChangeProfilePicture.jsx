@@ -1,34 +1,71 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useUser } from "../../shared/hooks/user/useUser";
+import { useNavigate } from "react-router-dom";
 
 export const ChangeProfilePicture = () => {
   const [selectedFile, setSelectedFile] = useState(null);
+  const [previewUrl, setPreviewUrl] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState(null);
   const { changeProfilePicture } = useUser();
+  const navigate=useNavigate()
+  const user = JSON.parse(localStorage.getItem("user"));
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     setSelectedFile(file);
+    setMessage(null);
+
+    if (file) {
+      const imageUrl = URL.createObjectURL(file);
+      setPreviewUrl(imageUrl);
+    }
   };
 
-  const handleSubmit = (e) => {
+  useEffect(() => {
+    return () => {
+      if (previewUrl) {
+        URL.revokeObjectURL(previewUrl);
+      }
+    };
+  }, [previewUrl]);
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    let data = new FormData();
+
+    if (!selectedFile) {
+      setMessage("Por favor selecciona una imagen.");
+      return;
+    }
+
+    const data = new FormData();
     data.append("profilePicture", selectedFile);
-    changeProfilePicture(data);
+
+    setLoading(true);
+    const success = await changeProfilePicture(data);
+    setLoading(false);
+    navigate('/dashboard/profile/updateProfile')
+    if (!success) {
+      window.location.reload(); 
+    } else {
+      setMessage("Error al cambiar la foto. Intenta de nuevo.");
+    }
   };
 
   return (
     <div className="flex flex-col items-center justify-center min-h-[40vh]">
       <h2 className="text-lg font-semibold mb-4">Change your profile picture</h2>
+
       <form onSubmit={handleSubmit} className="flex flex-col items-center gap-4">
-        <div className="w-16 h-16 rounded-full border border-gray-400 flex items-center justify-center">
-          <svg
-            className="w-8 h-8 text-gray-700"
-            fill="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path d="M12 12c2.7 0 5-2.3 5-5s-2.3-5-5-5-5 2.3-5 5 2.3 5 5 5zm0 2c-3.3 0-10 1.7-10 5v3h20v-3c0-3.3-6.7-5-10-5z" />
-          </svg>
+        <div className="w-20 h-20 rounded-full border border-gray-400 overflow-hidden">
+          <img
+            src={
+              previewUrl ||
+              `http://localhost:2636/uploads/img/users/${user.profilePicture}`
+            }
+            alt="Preview"
+            className="w-full h-full object-cover"
+          />
         </div>
 
         <input
@@ -46,11 +83,17 @@ export const ChangeProfilePicture = () => {
           Seleccionar imagen
         </label>
 
+        {message && <p className="text-red-500 text-sm">{message}</p>}
+
         <button
           type="submit"
-          className="bg-blue-400 text-white px-4 py-1.5 rounded hover:bg-blue-500 cursor-pointer"
+          disabled={loading}
+          className={`bg-blue-400 text-white px-4 py-1.5 rounded hover:bg-blue-500 cursor-pointer ${
+            loading ? "opacity-50 cursor-not-allowed" : ""
+          }`}
+          
         >
-          Cambiar Foto
+          {loading ? "Cambiando..." : "Cambiar Foto"} 
         </button>
       </form>
     </div>

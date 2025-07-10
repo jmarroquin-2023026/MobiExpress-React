@@ -5,8 +5,9 @@ import { FaUserCircle, FaShoppingCart, FaTh } from 'react-icons/fa';
 const Navbar = ({ searchTerm, setSearchTerm }) => {
   const isLogged = true;
   const isAdmin = JSON.parse(localStorage.getItem("user")).role === "ADMIN"
+  const user = JSON.parse(localStorage.getItem("user"))
 
-  const handleLogOut=()=>{
+  const handleLogOut = () => {
     localStorage.removeItem('token')
     localStorage.removeItem('user')
   }
@@ -44,8 +45,16 @@ const Navbar = ({ searchTerm, setSearchTerm }) => {
 
         <div className="flex items-center gap-4">
           <Link to="/dashboard/profile/updateProfile">
-            <FaUserCircle className="text-black text-xl cursor-pointer" />
-          </Link>
+  <div className="w-[30px] h-[30px] rounded-full overflow-hidden bg-gray-200">
+    <img
+      src={`http://localhost:2636/uploads/img/users/${user.profilePicture}`}
+      alt="Avatar"
+      className="w-full h-full object-cover"
+    />
+  </div>
+</Link>
+
+
           <Link to="/orders/completeOrder">
             <FaShoppingCart className="text-black text-xl cursor-pointer" />
           </Link>
@@ -55,24 +64,24 @@ const Navbar = ({ searchTerm, setSearchTerm }) => {
       {/* Menú inferior */}
       <div className="border-t border-yellow-300 text-sm text-black px-6 py-1 flex justify-between items-center">
         <div className="flex gap-6">
-          {isAdmin?(
+          {isAdmin ? (
             <div className="flex gap-6">
               <Link to="/users/getUsers" className="hover:underline">
-            Empleados
-          </Link>
-          <Link to="/orders/Allorders" className="hover:underline">
-            pedidos
-          </Link>
-          <Link to="/products/list" className="hover:underline">
-            Productos
-          </Link></div>
-            
-          ):(
+                Empleados
+              </Link>
+              <Link to="/orders/Allorders" className="hover:underline">
+                pedidos
+              </Link>
+              <Link to="/products/list" className="hover:underline">
+                Productos
+              </Link></div>
+
+          ) : (
             <div className="flex gap-6">
-            <Link to="/products/list" className="hover:underline">
-            Productos
-          </Link>
-          </div>
+              <Link to="/products/list" className="hover:underline">
+                Productos
+              </Link>
+            </div>
           )}
         </div>
         <div className="flex gap-2 items-center">
@@ -87,4 +96,4 @@ const Navbar = ({ searchTerm, setSearchTerm }) => {
     </nav>
   )
 }
- export default Navbar
+export default Navbar
